@@ -1,0 +1,6 @@
+framework module Pods_Miary {
+  umbrella header "Pods-Miary-umbrella.h"
+
+  export *
+  module * { export * }
+}
