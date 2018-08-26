@@ -51,15 +51,11 @@ class FeedTableViewController: UITableViewController {
         let DBRef = Database.database().reference().child("\(userId)/feed/")
         let STRef = Database.database().reference().child("\(userId)/feed/")
         let rootRef = Database.database().reference()
-        
-        
         rootRef.observe(.value) { (snapshot) in
             if snapshot.hasChildren() == false {
                 SVProgressHUD.dismiss()
             }
         }
-        
-        
         DBRef.observe(.childAdded) { (snapshot) in
             print("Firebase DB Observe!!")
             let data = snapshot.value as! Dictionary<String,AnyObject>

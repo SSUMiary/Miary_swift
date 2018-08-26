@@ -39,10 +39,11 @@ class MusicSearchViewController: UIViewController, UISearchResultsUpdating, UITa
     
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let tablecell = tableView.dequeueReusableCell(withIdentifier: "musicListCell") as! MusicListTableViewCell
+        return tablecell
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return 0
     }
     
     /*

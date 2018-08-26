@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "70F12C317446DB862185ACBCAE5B2E8E"
-               BuildableName = "Pods_Miary.framework"
-               BlueprintName = "Pods-Miary"
+               BlueprintIdentifier = "04ACCD651C30E7B6FE864F0FFE983BA5"
+               BuildableName = "JWT.framework"
+               BlueprintName = "JSONWebToken"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "70F12C317446DB862185ACBCAE5B2E8E"
-            BuildableName = "Pods_Miary.framework"
-            BlueprintName = "Pods-Miary"
+            BlueprintIdentifier = "04ACCD651C30E7B6FE864F0FFE983BA5"
+            BuildableName = "JWT.framework"
+            BlueprintName = "JSONWebToken"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -11,12 +11,18 @@
 		7875343C2120BDDA00A8F411 /* background_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 7875343B2120BDDA00A8F411 /* background_image.png */; };
 		787534412120C53200A8F411 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787534402120C53200A8F411 /* FeedItem.swift */; };
 		787534432121739D00A8F411 /* FeedDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787534422121739D00A8F411 /* FeedDetailViewController.swift */; };
+		78A9F4BE2132B2EE00352358 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9F4BD2132B2ED00352358 /* ApiClient.swift */; };
+		78A9F4C72132B30400352358 /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9F4C02132B30200352358 /* Artwork.swift */; };
+		78A9F4C82132B30400352358 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9F4C12132B30300352358 /* Resource.swift */; };
+		78A9F4C92132B30400352358 /* PlayParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9F4C22132B30300352358 /* PlayParameters.swift */; };
+		78A9F4CA2132B30400352358 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9F4C32132B30300352358 /* Attributes.swift */; };
+		78A9F4CB2132B30400352358 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9F4C42132B30300352358 /* SearchResult.swift */; };
+		78A9F4CC2132B30400352358 /* EditorialNotes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9F4C52132B30300352358 /* EditorialNotes.swift */; };
+		78A9F4CD2132B30400352358 /* Relationships.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9F4C62132B30400352358 /* Relationships.swift */; };
 		78C5B07421218AC900EFFC21 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B07321218AC900EFFC21 /* SettingsViewController.swift */; };
 		78C5B07821218C4700EFFC21 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B07721218C4700EFFC21 /* SettingsTableViewCell.swift */; };
 		78C5B07F2122C1A200EFFC21 /* MusicSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B07E2122C1A200EFFC21 /* MusicSearchViewController.swift */; };
 		78C5B0822122C31300EFFC21 /* MusicListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B0812122C31300EFFC21 /* MusicListTableViewCell.swift */; };
-		78C5B0842122C6C300EFFC21 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B0832122C6C300EFFC21 /* ApiClient.swift */; };
-		78C5B0A82122F2B300EFFC21 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B0A72122F2B300EFFC21 /* SearchResult.swift */; };
 		78DC001C2120340100AFD5D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DC001B2120340100AFD5D3 /* AppDelegate.swift */; };
 		78DC00212120340100AFD5D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78DC001F2120340100AFD5D3 /* Main.storyboard */; };
 		78DC00232120340200AFD5D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78DC00222120340200AFD5D3 /* Assets.xcassets */; };
@@ -37,12 +43,18 @@
 		7875343B2120BDDA00A8F411 /* background_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_image.png; sourceTree = "<group>"; };
 		787534402120C53200A8F411 /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 		787534422121739D00A8F411 /* FeedDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedDetailViewController.swift; sourceTree = "<group>"; };
+		78A9F4BD2132B2ED00352358 /* ApiClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		78A9F4C02132B30200352358 /* Artwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
+		78A9F4C12132B30300352358 /* Resource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
+		78A9F4C22132B30300352358 /* PlayParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayParameters.swift; sourceTree = "<group>"; };
+		78A9F4C32132B30300352358 /* Attributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
+		78A9F4C42132B30300352358 /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		78A9F4C52132B30300352358 /* EditorialNotes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorialNotes.swift; sourceTree = "<group>"; };
+		78A9F4C62132B30400352358 /* Relationships.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Relationships.swift; sourceTree = "<group>"; };
 		78C5B07321218AC900EFFC21 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		78C5B07721218C4700EFFC21 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		78C5B07E2122C1A200EFFC21 /* MusicSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSearchViewController.swift; sourceTree = "<group>"; };
 		78C5B0812122C31300EFFC21 /* MusicListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListTableViewCell.swift; sourceTree = "<group>"; };
-		78C5B0832122C6C300EFFC21 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
-		78C5B0A72122F2B300EFFC21 /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		78DC00182120340100AFD5D3 /* Miary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Miary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78DC001B2120340100AFD5D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78DC00202120340100AFD5D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -83,9 +95,23 @@
 		7875343D2120C07800A8F411 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				78C5B0832122C6C300EFFC21 /* ApiClient.swift */,
+				78A9F4BD2132B2ED00352358 /* ApiClient.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		78A9F4BF2132B2FA00352358 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				78A9F4C42132B30300352358 /* SearchResult.swift */,
+				78A9F4C12132B30300352358 /* Resource.swift */,
+				78A9F4C32132B30300352358 /* Attributes.swift */,
+				78A9F4C02132B30200352358 /* Artwork.swift */,
+				78A9F4C52132B30300352358 /* EditorialNotes.swift */,
+				78A9F4C22132B30300352358 /* PlayParameters.swift */,
+				78A9F4C62132B30400352358 /* Relationships.swift */,
+			);
+			path = Music;
 			sourceTree = "<group>";
 		};
 		78C5B07521218C1F00EFFC21 /* Setting */ = {
@@ -216,8 +242,8 @@
 		78DC003521203EA100AFD5D3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				78A9F4BF2132B2FA00352358 /* Music */,
 				787534402120C53200A8F411 /* FeedItem.swift */,
-				78C5B0A72122F2B300EFFC21 /* SearchResult.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -379,8 +405,10 @@
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/JSONWebToken/JWT.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -400,8 +428,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWT.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -421,8 +451,13 @@
 			files = (
 				78DCC4FF212094B400D20C0C /* FeedTableViewCell.swift in Sources */,
 				78DC0030212037BE00AFD5D3 /* LaunchViewController.swift in Sources */,
-				78C5B0A82122F2B300EFFC21 /* SearchResult.swift in Sources */,
+				78A9F4CB2132B30400352358 /* SearchResult.swift in Sources */,
+				78A9F4CD2132B30400352358 /* Relationships.swift in Sources */,
+				78A9F4CA2132B30400352358 /* Attributes.swift in Sources */,
+				78A9F4C72132B30400352358 /* Artwork.swift in Sources */,
+				78A9F4BE2132B2EE00352358 /* ApiClient.swift in Sources */,
 				78C5B07821218C4700EFFC21 /* SettingsTableViewCell.swift in Sources */,
+				78A9F4C92132B30400352358 /* PlayParameters.swift in Sources */,
 				78C5B07421218AC900EFFC21 /* SettingsViewController.swift in Sources */,
 				78C5B07F2122C1A200EFFC21 /* MusicSearchViewController.swift in Sources */,
 				78DCC50221209CE200D20C0C /* AddFeedTableViewController.swift in Sources */,
@@ -432,9 +467,10 @@
 				78DCC4F621204C2F00D20C0C /* FeedTableViewController.swift in Sources */,
 				787534412120C53200A8F411 /* FeedItem.swift in Sources */,
 				78C5B0822122C31300EFFC21 /* MusicListTableViewCell.swift in Sources */,
+				78A9F4CC2132B30400352358 /* EditorialNotes.swift in Sources */,
 				78DCC4FD21206CA500D20C0C /* MapViewController.swift in Sources */,
 				787534432121739D00A8F411 /* FeedDetailViewController.swift in Sources */,
-				78C5B0842122C6C300EFFC21 /* ApiClient.swift in Sources */,
+				78A9F4C82132B30400352358 /* Resource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
