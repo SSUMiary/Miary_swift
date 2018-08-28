@@ -10,6 +10,7 @@ pod 'FirebaseUI/Facebook'
 pod 'FirebaseUI/Twitter'
 pod 'Firebase/Core'
 pod 'FirebaseUI/Phone'
+pod 'SwiftyJSON'
 
 pod 'FBSDKLoginKit'
 
@@ -22,6 +23,8 @@ pod 'FacebookShare'
     pod 'SVProgressHUD'
     pod 'ChameleonFramework'
     pod 'FirebaseUI/Storage'
+    
+
   # Pods for Miary
 
 end

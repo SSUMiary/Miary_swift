@@ -50,10 +50,11 @@ class FeedTableViewController: UITableViewController {
         let userId = Auth.auth().currentUser!.uid
         let DBRef = Database.database().reference().child("\(userId)/feed/")
         let STRef = Database.database().reference().child("\(userId)/feed/")
-        let rootRef = Database.database().reference()
+        let rootRef = Database.database().reference().child("\(userId)/feed")
         
         
         rootRef.observe(.value) { (snapshot) in
+            print(snapshot)
             if snapshot.hasChildren() == false {
                 SVProgressHUD.dismiss()
             }
