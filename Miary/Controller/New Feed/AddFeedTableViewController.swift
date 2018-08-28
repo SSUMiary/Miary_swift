@@ -35,6 +35,9 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let playListManager = PlayListManager()
+       
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -112,7 +115,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
                 }
             }
         }
-//        
+        //
         
     }
     

@@ -23,10 +23,29 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     
     @IBAction func onButtonPressed(_ sender: Any){
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let nextVC = storyBoard.instantiateViewController(withIdentifier: "addSongs")
-        self.navigationController?.present(nextVC,animated: true,completion: nil)
+//        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+//        let nextVC = storyBoard.instantiateViewController(withIdentifier: "addSongs")
+//        self.navigationController?.present(nextVC,animated: true,completion: nil)
         //navigationController?.present(nextVC, animated: true, completion: nil)
+        
+        let playListManager = PlayListManager()
+        let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Play list name"
+        }
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
+            PlayListManager.makeNewPlayList(playListName: firstTextField.text!)
+            //add new playlist
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in })
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
     }
     
     override func viewDidLoad() {
@@ -34,49 +53,73 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        
-        playListManager.getPlayLists {[unowned self] (list) in
-            DispatchQueue.main.async(execute: {
-                self.playLists = list
-                self.tableView.reloadData()
-            })
+        getPlayLists()
 
-
-        }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
         
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    
+    func getPlayLists(){
+        SVProgressHUD.show()
+        let userId = MiaryLoginManager.getUserInfo().uid
+        var DBRef = Database.database().reference().child("\(userId)/playLists")
+        var STRef = Storage.storage().reference().child("\(userId)/playLists")
+        var lists : [PlayListItem] = []
+        
+        DBRef.observe(.childAdded) { (snapshot) in
+            if snapshot.hasChildren() == false {
+                print("no data")
+                SVProgressHUD.dismiss()
+            }
+            let data = snapshot.value as! Dictionary<String,AnyObject>
+            
+            var newPlayListItem = PlayListItem()
+            do{
+                newPlayListItem.key = snapshot.key
+                let str = data["imageUrl"] as! String
+                
+                let imageUrl = URL(string:str)
+                
+                do{
+                    let imageData = try Data(contentsOf: imageUrl!)
+                    newPlayListItem.coverImage = UIImage(data: imageData)!
+                }catch{
+                    
+                }
+                
+                newPlayListItem.playListTitle = data["title"] as! String
+                newPlayListItem.date = data["date"] as! String
+                newPlayListItem.musicCount = data["count"] as! String
+                newPlayListItem.firstMusicTitle = data["firstMusicTitle"] as! String
+                newPlayListItem.user = data["user"] as! String
+                
+                self.playLists.append(newPlayListItem)
+                self.tableView.reloadData()
+                
+            }
+            catch{
+                SVProgressHUD.dismiss()
+            }
+            self.tableView.reloadData()
+        }
+        SVProgressHUD.dismiss()
+
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
     // MARK: - Table view data source
     //
-    //    override func numberOfSections(in tableView: UITableView) -> Int {
-    //        // #warning Incomplete implementation, return the number of sections
-    //        guard let playLists = playLists else {return 0}
-    //
-    //        return playLists.count
-    //    }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        
-        
         return playLists.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("???")
         let cell = tableView.dequeueReusableCell(withIdentifier: "musicList", for: indexPath) as! PlayListTableViewCell
         let item = playLists[indexPath.row]
-        print(item)
         cell.backgroundImage.image = item.coverImage
         cell.date.text = item.date
         cell.playListTitle.text = item.playListTitle
@@ -89,16 +132,15 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "delete") { (action, sourceView, completionHandler) in
-         
-            
-            //self.playListManager.deletePlatList(playListKey: self.playLists[indexPath.row].key)
-           
+        
             SVProgressHUD.show()
-            let playListKey = self.playLists[indexPath.row].key
+            let playListKey : String = self.playLists[indexPath.row].key
             let userId = MiaryLoginManager.getUserInfo().uid
-            var DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)")
-            var STRef = Storage.storage().reference().child("\(userId)/playLists/\(playListKey)")
+            var DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)/")
+            var STRef = Storage.storage().reference().child("\(userId)/playLists/\(playListKey)/")
             STRef.delete { (error) in
+                print(#function)
+                print(error)
                 
             }
             DBRef.removeValue()
