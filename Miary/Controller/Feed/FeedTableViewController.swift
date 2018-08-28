@@ -11,6 +11,7 @@ import FirebaseDatabase
 import FirebaseStorage
 import SVProgressHUD
 import FirebaseAuth
+import SwiftyJSON
 
 class FeedTableViewController: UITableViewController {
 
@@ -55,6 +56,21 @@ class FeedTableViewController: UITableViewController {
             if snapshot.hasChildren() == false {
                 SVProgressHUD.dismiss()
             }
+            //print("allFeed?")
+            
+            var data = snapshot.value as! Dictionary<String,AnyObject>
+//            for i in 0..<data.count{
+//                print(data["title"] as! String)
+//            }
+            
+            ///print(JSON(data)[MiaryLoginManager.getUserInfo().uid]["feed"])
+            var dic = JSON(data)[MiaryLoginManager.getUserInfo().uid]["feed"].dictionary
+            var keys = dic?.keys
+            for k in keys!{
+                //print(dic?[k])
+                
+            }
+            
         }
         DBRef.observe(.childAdded) { (snapshot) in
             print("Firebase DB Observe!!")

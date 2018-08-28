@@ -33,7 +33,7 @@ class ApiClient{
     }()
     
     func search(term : String, completion : @escaping (SearchResult)->Void){
-        print("search")
+        
         let completionOnMain : (SearchResult?) -> Void  = { (SearchResult) -> Void in
             DispatchQueue.main.async {
                 completion(SearchResult!)
@@ -48,34 +48,14 @@ class ApiClient{
         headers["Authorization"] = "Bearer \(ApiClient.developerToken)"
         Alamofire.request(url,method : .get, parameters : params, headers : headers).responseJSON{
             response in
-            print("request")
             if response.result.isSuccess{
                 print("Success! Got the music data")
-                
-                
-                //
-                //                let data : JSON = JSON(response.result.value!)
-                //                //json 에서 title만 일단 담아서 searchResult 담기
-                //                guard let albumsData = data.dictionaryValue["results"]?.dictionaryValue["albums"]?.dictionary!["data"] else{ return}
-                //                let dataArray = albumsData.arrayValue
-                //                //print(data.dictionary!["results"]?.dictionary!["albums"]?.dictionary!["data"])
-                //
-                //                var searchResult = SearchResult()
-                //                var titleArray : [String] = []
-                //
-                //                for item in (dataArray){
-                //                    let anyString = item.dictionaryValue["attributes"]!["name"]
-                //                    print(anyString.rawString()!)
-                //                    titleArray.append(anyString.rawString()!)
-                //                }
-                //                searchResult.results = titleArray
-                //                completionOnMain(searchResult)
-                //
-                ////                for item in albumsData
-                
+                print(response)
                 let data : JSON = JSON(response.result.value!)
+                print(data)
                 guard let searchResult = try? JSONDecoder().decode(SearchResult.self, from: data.rawData()) else {
                     print(#function, "JSON Decode Failed");
+                    print(data)
                     completionOnMain(nil)
                     return
                 }

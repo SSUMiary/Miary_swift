@@ -33,11 +33,7 @@ class TabBarViewController: UITabBarController {
         
     }
     @objc func onButtonTapped(){
-        
-        
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        
-        
         let nextVC = storyBoard.instantiateViewController(withIdentifier: "addNewFeed")
         self.present(nextVC, animated: true, completion: nil)
         

@@ -15,7 +15,7 @@ class LaunchViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        if Auth.auth().currentUser != nil{
+        if MiaryLoginManager.getUserInfo() != nil{
             performSegue(withIdentifier: "goToMainWithOutLogin", sender: self)
 
         }else{

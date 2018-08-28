@@ -26,14 +26,6 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     
     @IBOutlet var labels: [UILabel]!
     
-    override func viewWillAppear(_ animated: Bool) {
-        
-        
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        
-    }
-    
     @objc func tableviewTappedOutFocus(){
         print(#function)
         firstMusicTitle.endEditing(true)
@@ -60,7 +52,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     @IBAction func onSaveButtonPressed(_ sender: UIBarButtonItem) {
         
         SVProgressHUD.show()
-        let userId = Auth.auth().currentUser!.uid
+        let userId = MiaryLoginManager.getUserInfo().uid
         print("onSaveButtonPressed")
         print(userId)
         var DBRef = Database.database().reference().child("/\(userId)/feed/")
@@ -92,6 +84,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
                             alertController.addAction(alert)
                             self.present(alertController, animated: true, completion: nil)
                         }else {
+                            
                             SVProgressHUD.dismiss()
                             print(url?.absoluteString)
                             
