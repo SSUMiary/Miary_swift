@@ -51,45 +51,40 @@ class FeedTableViewController: UITableViewController {
         let userId = Auth.auth().currentUser!.uid
         let DBRef = Database.database().reference().child("\(userId)/feed/")
         let STRef = Database.database().reference().child("\(userId)/feed/")
-        let rootRef = Database.database().reference()
-        rootRef.observe(.value) { (snapshot) in
-            if snapshot.hasChildren() == false {
+        
+        
+        DBRef.observe(.childAdded) { (snapshot) in
+            print("Firebase DB Observe!!")
+            let data = snapshot.value as! Dictionary<String,AnyObject>
+            
+            var newFeed = FeedItem()
+            do{
+                newFeed.key = snapshot.key
+                let str = data["imageUrl"] as! String
+                
+                let imageUrl = URL(string:str)
+                
+                do{
+                    let imageData = try Data(contentsOf: imageUrl!)
+                    newFeed.image = UIImage(data: imageData)!
+                }catch{
+                    
+                }
+                newFeed.title = data["title"] as! String
+                newFeed.date = data["date"] as! String
+                newFeed.count = data["count"] as! String
+                newFeed.firstMusicTitle = data["firstMusicTitle"] as! String
+                self.feeds.append(newFeed)
+                
+                self.tableView.reloadData()
                 SVProgressHUD.dismiss()
             }
-            
-            
-            DBRef.observe(.childAdded) { (snapshot) in
-                print("Firebase DB Observe!!")
-                let data = snapshot.value as! Dictionary<String,AnyObject>
-                
-                var newFeed = FeedItem()
-                do{
-                    newFeed.key = snapshot.key
-                    let str = data["imageUrl"] as! String
-                    
-                    let imageUrl = URL(string:str)
-                    
-                    do{
-                        let imageData = try Data(contentsOf: imageUrl!)
-                        newFeed.image = UIImage(data: imageData)!
-                    }catch{
-                        
-                    }
-                    newFeed.title = data["title"] as! String
-                    newFeed.date = data["date"] as! String
-                    newFeed.count = data["count"] as! String
-                    newFeed.firstMusicTitle = data["firstMusicTitle"] as! String
-                    self.feeds.append(newFeed)
-                    
-                    self.tableView.reloadData()
-                    SVProgressHUD.dismiss()
-                }
-                catch{
-                    SVProgressHUD.dismiss()
-                }
+            catch{
+                SVProgressHUD.dismiss()
             }
-            
         }
+        
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

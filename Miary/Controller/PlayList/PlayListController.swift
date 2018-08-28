@@ -100,6 +100,7 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
             self.tableView.reloadData()
         }
+        
         SVProgressHUD.dismiss()
 
     }
