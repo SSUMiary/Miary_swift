@@ -28,6 +28,7 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
     @IBOutlet var playListTitle : UILabel!
     var playListKey : String?
     let apiClient = ApiClient()
+    let playListManager = PlayListManager()
     var playListTitleSource :String?
     var playListCount : String?
     
@@ -100,6 +101,33 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
     
     @IBAction func onCancelButtonPressed(){
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func onEditButtonPressed(){
+        let playListManager = PlayListManager()
+        let alertController = UIAlertController(title: "Edit play list name", message: "", preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            textField.placeholder = self.playListTitle.text
+        }
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+            let firstTextField = alertController.textFields![0] as UITextField
+            
+            if firstTextField.text == "" {
+                return
+            }
+            let newPlayListName = firstTextField.text
+            
+            self.playListManager.updatePlayListName(newName: newPlayListName!, playListKey: self.playListKey!)
+            //add new playlist
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+            (action : UIAlertAction!) -> Void in })
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
     }
     
     @IBAction func addSongs(){

@@ -57,7 +57,7 @@
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>TODO: Usage Description</string>
+	<string></string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

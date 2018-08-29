@@ -804,6 +804,11 @@
                                 <action selector="onCancelButtonPressed" destination="NDY-eE-DO4" id="XFW-tc-dei"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="2h1-3c-jSN">
+                            <connections>
+                                <action selector="onEditButtonPressed" destination="NDY-eE-DO4" id="SP2-kz-ULp"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="playListTitle" destination="Ry9-vp-dIW" id="I40-iL-Mgh"/>

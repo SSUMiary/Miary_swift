@@ -19,15 +19,21 @@ class PlayListInFeedViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var tableView : UITableView!
     
     var playLists : [PlayListItem] = []
-    
-
+    let apiClient = ApiClient()
+    let playListManager = PlayListManager()
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
-        getPlayLists()
+        playListManager.getAllPlayLists { (list) in
+            DispatchQueue.main.async {
+                self.playLists = list
+                self.tableView.reloadData()
+                SVProgressHUD.dismiss()
+            }
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -50,10 +56,7 @@ class PlayListInFeedViewController: UIViewController, UITableViewDelegate, UITab
         alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
-        
-//        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//        let nextVC = storyBoard.instantiateViewController(withIdentifier: "addNewPlayList")
-//        self.navigationController?.present(nextVC,animated: true,completion: nil)
+
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "specificPlayList" {
@@ -86,53 +89,53 @@ class PlayListInFeedViewController: UIViewController, UITableViewDelegate, UITab
         return playLists.count
     }
     
-    
-    func getPlayLists(){
-        SVProgressHUD.show()
-        let userId = MiaryLoginManager.getUserInfo().uid
-        var DBRef = Database.database().reference().child("\(userId)/playLists")
-        var STRef = Storage.storage().reference().child("\(userId)/playLists")
-        var lists : [PlayListItem] = []
-        
-        DBRef.observe(.childAdded) { (snapshot) in
-            if snapshot.hasChildren() == false {
-                print("no data")
-                SVProgressHUD.dismiss()
-            }
-            let data = snapshot.value as! Dictionary<String,AnyObject>
-            
-            var newPlayListItem = PlayListItem()
-            do{
-                newPlayListItem.key = snapshot.key
-                let str = data["imageUrl"] as! String
-                
-                let imageUrl = URL(string:str)
-                
-                do{
-                    let imageData = try Data(contentsOf: imageUrl!)
-                    newPlayListItem.coverImage = UIImage(data: imageData)!
-                }catch{
-                    
-                }
-                
-                newPlayListItem.playListTitle = data["title"] as! String
-                newPlayListItem.date = data["date"] as! String
-                newPlayListItem.musicCount = data["count"] as! String
-                newPlayListItem.firstMusicTitle = data["firstMusicTitle"] as! String
-                newPlayListItem.user = data["user"] as! String
-                
-                self.playLists.append(newPlayListItem)
-                self.tableView.reloadData()
-                
-            }
-            catch{
-                SVProgressHUD.dismiss()
-            }
-            self.tableView.reloadData()
-        }
-        SVProgressHUD.dismiss()
-        
-    }
+//
+//    func getPlayLists(){
+//        SVProgressHUD.show()
+//        let userId = MiaryLoginManager.getUserInfo().uid
+//        var DBRef = Database.database().reference().child("\(userId)/playLists")
+//        var STRef = Storage.storage().reference().child("\(userId)/playLists")
+//        var lists : [PlayListItem] = []
+//
+//        DBRef.observe(.childAdded) { (snapshot) in
+//            if snapshot.hasChildren() == false {
+//                print("no data")
+//                SVProgressHUD.dismiss()
+//            }
+//            let data = snapshot.value as! Dictionary<String,AnyObject>
+//
+//            var newPlayListItem = PlayListItem()
+//            do{
+//                newPlayListItem.key = snapshot.key
+//                let str = data["imageUrl"] as! String
+//
+//                let imageUrl = URL(string:str)
+//
+//                do{
+//                    let imageData = try Data(contentsOf: imageUrl!)
+//                    newPlayListItem.coverImage = UIImage(data: imageData)!
+//                }catch{
+//
+//                }
+//
+//                newPlayListItem.playListTitle = data["title"] as! String
+//                newPlayListItem.date = data["date"] as! String
+//                newPlayListItem.musicCount = data["count"] as! String
+//                newPlayListItem.firstMusicTitle = data["firstMusicTitle"] as! String
+//                newPlayListItem.user = data["user"] as! String
+//
+//                self.playLists.append(newPlayListItem)
+//                self.tableView.reloadData()
+//
+//            }
+//            catch{
+//                SVProgressHUD.dismiss()
+//            }
+//            self.tableView.reloadData()
+//        }
+//        SVProgressHUD.dismiss()
+//
+//    }
     /*
     // MARK: - Navigation
 
