@@ -100,6 +100,41 @@ class ApiClient{
         }
     }
     
+    func album(id: String, completion: @escaping (Resource?) -> Swift.Void) {
+        let completionOnMain: (Resource?) -> Void = { resource in
+            DispatchQueue.main.async {
+                completion(resource)
+            }
+        }
+        
+        guard let url = URL(string: "https://api.music.apple.com/v1/catalog/\(ApiClient.countryCode)/albums/\(id)") else { return }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("Bearer \(ApiClient.developerToken)",
+            forHTTPHeaderField: "Authorization")
+        
+        data(with: request) { data, error -> Void in
+            guard error == nil else {
+                print(#function, "URL Session Task Failed", error!)
+                completionOnMain(nil)
+                return
+            }
+            
+            guard let jsonData = try? JSONSerialization.jsonObject(with: data!),
+                let dictionary = jsonData as? [String: Any],
+                let dataArray = dictionary["data"] as? [[String: Any]],
+                let albumDictionary = dataArray.first,
+                let albumData = try? JSONSerialization.data(withJSONObject: albumDictionary),
+                let album = try? JSONDecoder().decode(Resource.self, from: albumData) else {
+                    print(#function, "JSON Decode Failed");
+                    completionOnMain(nil)
+                    return
+            }
+            completionOnMain(album)
+        }
+    }
+    
     
 }
 

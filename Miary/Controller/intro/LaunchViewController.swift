@@ -8,14 +8,14 @@
 
 import UIKit
 import Firebase
-
+import FirebaseAuth
 class LaunchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        if MiaryLoginManager.getUserInfo() != nil{
+        if Auth.auth().currentUser != nil{
             performSegue(withIdentifier: "goToMainWithOutLogin", sender: self)
 
         }else{

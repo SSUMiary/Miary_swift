@@ -74,6 +74,7 @@ class MiaryLoginManager{
     static func getUserInfo() -> User{
         
         return Auth.auth().currentUser!
+        
     }
     
     static func loginFireBase(_ viewController : UIViewController){

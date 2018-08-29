@@ -55,6 +55,15 @@ class PlayListInFeedViewController: UIViewController, UITableViewDelegate, UITab
 //        let nextVC = storyBoard.instantiateViewController(withIdentifier: "addNewPlayList")
 //        self.navigationController?.present(nextVC,animated: true,completion: nil)
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "specificPlayList" {
+            let vc = segue.destination as! UINavigationController
+            let topVC = vc.topViewController as! SpecificPlayList
+            let index = tableView.indexPathForSelectedRow
+            topVC.playListKey = playLists[index!.row].key as! String
+            
+        }
+    }
     
 
     override func didReceiveMemoryWarning() {

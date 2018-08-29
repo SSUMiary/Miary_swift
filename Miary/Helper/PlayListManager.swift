@@ -60,6 +60,42 @@ class PlayListManager{
         }
     }
     
-    func updatePlayListName(newName : String){}
+    func updatePlayListName(newName : String, playListKey : String){
+        // 플레이리스트 이름 변경
+        
+    }
+    func updatePlayListCount(playListKey : String){
+        //곡 추가하고 호출 되야 함
+        
+    }
+    
+    func addMusicToPlayList(albumID : String, album : Resource, playListKey : String, index : Int){
+        let userId = MiaryLoginManager.getUserInfo().uid
+        
+        let artWork = album.attributes?.artwork
+        let track = album.relationships?.tracks![index]
+        let songName = track?.attributes?.name!
+        let artist = track?.attributes?.artistName!
+        let songID = track?.id!
+        let url = artWork?.imageURL(width: 80, height: 80)!
+        
+        let dic : Dictionary<String,String> = ["songName" : songName!,
+                                               "artist" : artist!,
+                                               "songID": songID!,
+                                               "imageURL" : (url?.absoluteString)!,
+                                               ]
+
+
+        var DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)")
+        let autokey = DBRef.childByAutoId().key
+        DBRef = DBRef.child(autokey)
+        
+
+        DBRef.setValue(dic)
+        
+    }
+    
+    
+    
    
 }

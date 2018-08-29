@@ -23,10 +23,7 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     
     @IBAction func onButtonPressed(_ sender: Any){
-//        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//        let nextVC = storyBoard.instantiateViewController(withIdentifier: "addSongs")
-//        self.navigationController?.present(nextVC,animated: true,completion: nil)
-        //navigationController?.present(nextVC, animated: true, completion: nil)
+        
         
         let playListManager = PlayListManager()
         let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
@@ -53,17 +50,16 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        getPlayLists()
-
+        getAllPlayList()
+        
         
     }
-    func getPlayLists(){
+    func getAllPlayList(){
         SVProgressHUD.show()
         let userId = MiaryLoginManager.getUserInfo().uid
         var DBRef = Database.database().reference().child("\(userId)/playLists")
         var STRef = Storage.storage().reference().child("\(userId)/playLists")
         var lists : [PlayListItem] = []
-        
         DBRef.observe(.childAdded) { (snapshot) in
             if snapshot.hasChildren() == false {
                 print("no data")
@@ -102,9 +98,9 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         
         SVProgressHUD.dismiss()
-
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -112,7 +108,7 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     // MARK: - Table view data source
     //
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playLists.count
     }
@@ -133,7 +129,7 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "delete") { (action, sourceView, completionHandler) in
-        
+            
             SVProgressHUD.show()
             let playListKey : String = self.playLists[indexPath.row].key
             let userId = MiaryLoginManager.getUserInfo().uid
@@ -153,6 +149,16 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         let swipeActionConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
         return swipeActionConfiguration
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "specificPlayList"{
+            let nextVC = segue.destination as! UINavigationController
+            let topVC = nextVC.topViewController as! SpecificPlayList
+            let index = tableView.indexPathForSelectedRow
+            topVC.playListKey = playLists[index!.row].key as! String
+            //performSegue(withIdentifier: "specificPlayList", sender: self)
+        }
     }
     
     

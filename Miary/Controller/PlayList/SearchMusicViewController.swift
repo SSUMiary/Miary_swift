@@ -10,15 +10,17 @@ import UIKit
 
 class SearchMusicViewController: UIViewController ,UISearchResultsUpdating, UITableViewDelegate,UITableViewDataSource, UINavigationBarDelegate{
     
+    //음원 검색 할때 처음 보이는 뷰
     
     var albums : [Resource]?
     let apiClient = ApiClient()
+    var playListkey : String!
     
     @IBOutlet var tableView: UITableView!
-    @IBAction func onCancelButtonPressed(_ sender: UIBarButtonItem) {
-        
-        dismiss(animated: true, completion: nil)
-    }
+//    @IBAction func onCancelButtonPressed(_ sender: UIBarButtonItem) {
+//        
+//        dismiss(animated: true, completion: nil)
+//    }
     
     @IBAction func onSaveButtonPressed(_ sender : UIBarButtonItem){
         
@@ -93,7 +95,28 @@ class SearchMusicViewController: UIViewController ,UISearchResultsUpdating, UITa
         //tableView.tableHeaderView = searchController.searchBar
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AlbumViewController"{
+            let vc = segue.destination as! UINavigationController
+            let topVC = vc.topViewController as! AlbumViewController
+            let index = tableView.indexPathForSelectedRow
+            topVC.albumID = albums![index!.row].id!
+            topVC.playListKey = playListkey
+            
+        }
+    }
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let album = albums![indexPath.row]
+//        let vc = storyboard?.instantiateViewController(withIdentifier: "AlbumViewController") as! AlbumViewController
+//        //let topVc = vc.topViewController as! AlbumViewController
+//        //topVc.albumID = album.id
+//        //topVc.playListKey = playListkey
+//        vc.albumID = album.id
+//        vc.playListKey = playListkey
+//        navigationController?.pushViewController(vc, animated: true)
+//
+//    }
 
     /*
     // MARK: - Navigation

@@ -12,6 +12,7 @@ import FirebaseStorage
 import SVProgressHUD
 import FirebaseAuth
 import SwiftyJSON
+import StoreKit
 
 class FeedTableViewController: UITableViewController {
     
@@ -28,6 +29,30 @@ class FeedTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         downloadFromServer()
+        prepareSKCloud()
+    }
+    
+    func prepareSKCloud(){
+        
+        SKCloudServiceController.requestAuthorization { status in
+            guard status == .authorized else { return }
+            print("Authorization status is authorized")
+        }
+        
+        let skcloudSericeController = SKCloudServiceController()
+        let developerToken = "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlpaNDRCOFMzTk0ifQ.eyJpYXQiOjE1MzM5ODI0MTMsImV4cCI6MTU0OTUzNDQxMywiaXNzIjoiODc4OFI4MjY1TCJ9.uhoZnZ1vPJ8WXBJZuywHTWs8RfeOenWAodLsWnFbciND8PPStL_9unJRESvvcr6oeFAHhMJfogPxiTiFTb92pw"
+        
+        
+        skcloudSericeController.requestUserToken(forDeveloperToken: developerToken) { (string, error) in
+            
+            if error != nil {
+                print("error occured")
+                print(error)
+                
+            }else{
+                print(string)
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
