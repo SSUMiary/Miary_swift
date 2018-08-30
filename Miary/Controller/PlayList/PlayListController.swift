@@ -50,6 +50,7 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        SVProgressHUD.show()
         //getAllPlayList()
     
 //        playListManager.getAllPlayLists { (playList) in
@@ -66,6 +67,7 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     override func viewWillAppear(_ animated: Bool) {
         SVProgressHUD.show()
+        
         playListManager.getAllPlayLists { (playlist) in
             DispatchQueue.main.async {
                 self.playLists = playlist
@@ -74,53 +76,7 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
             }
         }
     }
-//    func getAllPlayList(){
-//        SVProgressHUD.show()
-//        let userId = MiaryLoginManager.getUserInfo().uid
-//        var DBRef = Database.database().reference().child("\(userId)/playLists")
-//        var STRef = Storage.storage().reference().child("\(userId)/playLists")
-//        var lists : [PlayListItem] = []
-//        DBRef.observe(.childAdded) { (snapshot) in
-//            if snapshot.hasChildren() == false {
-//                print("no data")
-//                SVProgressHUD.dismiss()
-//            }
-//            let data = snapshot.value as! Dictionary<String,AnyObject>
-//
-//            var newPlayListItem = PlayListItem()
-//            do{
-//                newPlayListItem.key = snapshot.key
-//                let str = data["imageUrl"] as! String
-//
-//                let imageUrl = URL(string:str)
-//
-//                do{
-//                    let imageData = try Data(contentsOf: imageUrl!)
-//                    newPlayListItem.coverImage = UIImage(data: imageData)!
-//                }catch{
-//
-//                }
-//
-//                newPlayListItem.playListTitle = data["title"] as! String
-//                newPlayListItem.date = data["date"] as! String
-//                newPlayListItem.musicCount = data["count"] as! String
-//                newPlayListItem.firstMusicTitle = data["firstMusicTitle"] as! String
-//                newPlayListItem.user = data["user"] as! String
-//
-//                lists.append(newPlayListItem)
-//                self.playLists = lists
-//                self.tableView.reloadData()
-//            }
-//            catch{
-//                SVProgressHUD.dismiss()
-//            }
-//            self.tableView.reloadData()
-//        }
-//
-//        SVProgressHUD.dismiss()
-//
-//    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -173,10 +129,13 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
         if segue.identifier == "specificPlayList"{
             let nextVC = segue.destination as! UINavigationController
             let topVC = nextVC.topViewController as! SpecificPlayList
             let index = tableView.indexPathForSelectedRow
+            tableView.deselectRow(at: tableView.indexPathForSelectedRow!, animated: true)
             topVC.playListKey = playLists[index!.row].key as! String
             //performSegue(withIdentifier: "specificPlayList", sender: self)
         }

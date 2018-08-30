@@ -23,7 +23,7 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
     var canMusicCatalogPlayback = false
     let musicPlayer = MPMusicPlayerController.systemMusicPlayer
     let cloudServiceController = SKCloudServiceController()
-
+    
     @IBOutlet var tableView : UITableView!
     @IBOutlet var playListTitle : UILabel!
     var playListKey : String?
@@ -49,6 +49,8 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
         prepare()
         
     }
+    
+    
     func prepare(){
         self.cloudServiceController.requestCapabilities { capabilities, error in
             if error != nil {
@@ -59,6 +61,8 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
             self.canMusicCatalogPlayback = true
         }
     }
+    
+    
     
     func getPlayListInformation(){
         //서버로 부터 playListTitle 에 대한 플레이 리스트 정보를 받아옴
@@ -74,14 +78,16 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
             //print(#function)
             
             if snapshot.hasChildren() {
-               // print(snapshot)
+                // print(snapshot)
                 //print(snapshot.key)
                 let data = snapshot.value as! Dictionary<String,String>
+                let songKey = snapshot.key
                 let song = SimpleSongModel()
                 song.artist = data["artist"]
                 song.songName = data["songName"]
                 song.imageURL = data["imageURL"]
                 song.songID = data["songID"]
+                song.songKey = songKey
                 self.songs.append(song)
                 self.tableView.reloadData()
                 
@@ -90,9 +96,6 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
                 if snapshot.key == "title" {
                     self.playListTitle.text = snapshot.value as! String
                 }
-                
-                //let song = SimpleSongModel()
-                //self.playListTitle.text = data["title"] as! String
             }
         }
     }
@@ -116,7 +119,7 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
                 return
             }
             let newPlayListName = firstTextField.text
-            
+            self.playListTitle.text = newPlayListName
             self.playListManager.updatePlayListName(newName: newPlayListName!, playListKey: self.playListKey!)
             //add new playlist
         })
@@ -141,9 +144,12 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
         //navigationController?.present(nextVC, animated: true, completion: nil)
     }
     
-     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard canMusicCatalogPlayback else { return }
+        guard canMusicCatalogPlayback else {
+            print(#function)
+            print(canMusicCatalogPlayback)
+            return }
         //guard indexPath.section == 1 else { return }
         
         let item = songs[indexPath.row]

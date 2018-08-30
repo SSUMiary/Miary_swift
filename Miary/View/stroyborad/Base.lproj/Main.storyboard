@@ -550,6 +550,16 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1iJ-m8-l1M" id="Boi-NG-duh">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3k-QK-tcB">
+                                                    <rect key="frame" x="138" y="14" width="98" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="select play list"/>
+                                                    <connections>
+                                                        <segue destination="FYq-i0-JOa" kind="show" identifier="selectPlayList" id="XnI-QF-hqj"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -569,7 +579,6 @@
                         <barButtonItem key="rightBarButtonItem" title="Next" id="lMw-vR-fnS">
                             <connections>
                                 <action selector="onSaveButtonPressed:" destination="VDP-8c-eit" id="Wkc-8c-Tz1"/>
-                                <segue destination="FYq-i0-JOa" kind="show" id="4dJ-Mf-AJ6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

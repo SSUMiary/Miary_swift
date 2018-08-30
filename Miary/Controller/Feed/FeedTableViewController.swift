@@ -29,7 +29,7 @@ class FeedTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         downloadFromServer()
-        //prepareSKCloud()
+        prepareSKCloud()
     }
     
     func prepareSKCloud(){
@@ -81,6 +81,10 @@ class FeedTableViewController: UITableViewController {
         DBRef.observe(.childAdded) { (snapshot) in
             print("Firebase DB Observe!!")
             let data = snapshot.value as! Dictionary<String,AnyObject>
+            if !snapshot.hasChildren() {
+                SVProgressHUD.dismiss()
+                return
+            }
             
             var newFeed = FeedItem()
             do{

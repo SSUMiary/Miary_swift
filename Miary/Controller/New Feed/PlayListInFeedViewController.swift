@@ -13,11 +13,17 @@ import SVProgressHUD
 import FirebaseAuth
 import SwiftyJSON
 
+
+protocol onPlayListSelectedListener{
+    func onPlayListSelected(playListKey : String)
+}
+
 class PlayListInFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
  
     
     @IBOutlet weak var tableView : UITableView!
     
+    var delegate : onPlayListSelectedListener?
     var playLists : [PlayListItem] = []
     let apiClient = ApiClient()
     let playListManager = PlayListManager()
@@ -27,6 +33,11 @@ class PlayListInFeedViewController: UIViewController, UITableViewDelegate, UITab
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
+       
+        // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        SVProgressHUD.show()
         playListManager.getAllPlayLists { (list) in
             DispatchQueue.main.async {
                 self.playLists = list
@@ -34,9 +45,7 @@ class PlayListInFeedViewController: UIViewController, UITableViewDelegate, UITab
                 SVProgressHUD.dismiss()
             }
         }
-        // Do any additional setup after loading the view.
     }
-    
     
     @IBAction func onNewButtonPreessed(){
         let playListManager = PlayListManager()

@@ -63,7 +63,7 @@ class PlayListManager{
         let DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)")
         DBRef.updateChildValues(["title" : newName])
         
-        SVProgressHUD.showSuccess(withStatus: "update finished")
+        //SVProgressHUD.showSuccess(withStatus: "update finished")
         
     }
     func updatePlayListCount(playListKey : String){
@@ -80,15 +80,24 @@ class PlayListManager{
             }
         }
         
-        SVProgressHUD.show()
+        
         let userId = MiaryLoginManager.getUserInfo().uid
         var DBRef = Database.database().reference().child("\(userId)/playLists")
         var STRef = Storage.storage().reference().child("\(userId)/playLists")
         var lists : [PlayListItem] = []
+        
+        
         DBRef.observe(.value) { (snapshot) in
             //print(#function)
             //print(snapshot.value)
+            if !snapshot.hasChildren() {
+                var emptyList : [PlayListItem] = []
+                mainCompletion(emptyList)
+                return
+            }
+            
             if lists.count>0 { lists = []}
+            
             let data = snapshot.value as! NSDictionary
             let keys = data.allKeys as! [String]
             
@@ -113,8 +122,10 @@ class PlayListManager{
         }
     }
     
+
     
     func addMusicToPlayList(albumID : String, album : Resource, playListKey : String, index : Int){
+        
         let userId = MiaryLoginManager.getUserInfo().uid
         
         let artWork = album.attributes?.artwork
@@ -124,21 +135,23 @@ class PlayListManager{
         let songID = track?.id!
         let url = artWork?.imageURL(width: 80, height: 80)!
         
+        var DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)")
+        let autokey = DBRef.childByAutoId().key
+        
+        
         let dic : Dictionary<String,String> = ["songName" : songName!,
                                                "artist" : artist!,
                                                "songID": songID!,
                                                "imageURL" : (url?.absoluteString)!,
-                                               ]
+                                               "songKey" : autokey
+        ]
         
-        
-        var DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)")
-        let autokey = DBRef.childByAutoId().key
         DBRef = DBRef.child(autokey)
-        DBRef.setValue(dic)
         
+        let g = DispatchQueue(label: "add")
+        let q1 = DispatchWorkItem() {
+            DBRef.setValue(dic)
+        }
+        g.async(execute: q1)
     }
-    
-    
-    
-    
 }

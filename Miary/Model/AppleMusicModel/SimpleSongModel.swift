@@ -14,6 +14,6 @@ class SimpleSongModel{
     var songID : String?
     var imageURL : String?
     var songName : String?
-
+    var songKey : String?
     
 }

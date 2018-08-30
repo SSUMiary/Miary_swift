@@ -10,10 +10,11 @@ import UIKit
 import StoreKit
 import MediaPlayer
 
-class AlbumViewController: UITableViewController, UINavigationBarDelegate {
+class AlbumViewController: UITableViewController, UINavigationBarDelegate, SKCloudServiceSetupViewControllerDelegate {
     
     let apiClient = ApiClient()
     let cloudServiceController = SKCloudServiceController()
+    var cloudServiceSetupController = SKCloudServiceSetupViewController()
     let musicPlayer = MPMusicPlayerController.systemMusicPlayer
     let playListManager = PlayListManager()
     var albumID: String!
@@ -25,11 +26,12 @@ class AlbumViewController: UITableViewController, UINavigationBarDelegate {
     
     @IBAction func onCancelButtonPressed(){
         self.dismiss(animated: true, completion: nil)
+    
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        cloudServiceSetupController.delegate = self
         prepare()
     }
     
@@ -84,6 +86,8 @@ extension AlbumViewController {
 
 extension AlbumViewController {
     
+    
+    
     func prepare() {
         apiClient.album(id: albumID) { [unowned self] album in
             DispatchQueue.main.async {
@@ -93,7 +97,26 @@ extension AlbumViewController {
         }
         
         self.cloudServiceController.requestCapabilities { capabilities, error in
-            guard capabilities.contains(.musicCatalogPlayback) else { return }
+            
+            if error != nil {
+                print(#function)
+                print("capability erorr")
+                print(error)
+            }
+            
+            guard capabilities.contains(.musicCatalogPlayback) else {
+                print(#function)
+                print("musicCatalogPlayBack denied")
+                //애플 뮤직 링크
+                let optionsKeys = SKCloudServiceSetupOptionsKey(rawValue: "optionKey")
+                
+                
+                self.cloudServiceSetupController.load(options: [optionsKeys : "key"], completionHandler: { (result, error) in
+                    print(#function)
+                    print(result)
+                    print(error)
+                })
+                return }
             self.canMusicCatalogPlayback = true
         }
     }
