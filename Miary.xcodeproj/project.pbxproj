@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58232DBD2136797E00F2A9F8 /* CitySelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58232DBC2136797E00F2A9F8 /* CitySelectViewController.swift */; };
 		5827BC1C212BF1B30074AEBE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5827BC1B212BF1B30074AEBE /* MapKit.framework */; };
 		7875343A2120BBC100A8F411 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 787534392120BBC100A8F411 /* Launch Screen.storyboard */; };
 		7875343C2120BDDA00A8F411 /* background_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 7875343B2120BDDA00A8F411 /* background_image.png */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		2BE19B22FE6DFC8E7ACDA44A /* Pods_Miary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Miary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		58232DBC2136797E00F2A9F8 /* CitySelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectViewController.swift; sourceTree = "<group>"; };
 		5827BC1B212BF1B30074AEBE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		787534392120BBC100A8F411 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7875343B2120BDDA00A8F411 /* background_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_image.png; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				78DCC4FC21206CA500D20C0C /* MapViewController.swift */,
+				58232DBC2136797E00F2A9F8 /* CitySelectViewController.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -439,6 +442,7 @@
 				78DCC50221209CE200D20C0C /* AddFeedTableViewController.swift in Sources */,
 				78DCC50C2120AD1C00D20C0C /* TabBarViewController.swift in Sources */,
 				78DC001C2120340100AFD5D3 /* AppDelegate.swift in Sources */,
+				58232DBD2136797E00F2A9F8 /* CitySelectViewController.swift in Sources */,
 				78DCC4F821204C7700D20C0C /* LoginViewController.swift in Sources */,
 				78DCC4F621204C2F00D20C0C /* FeedTableViewController.swift in Sources */,
 				787534412120C53200A8F411 /* FeedItem.swift in Sources */,

@@ -12,15 +12,17 @@ import FirebaseStorage
 import SVProgressHUD
 import FirebaseAuth
 
-class AddFeedTableViewController: UITableViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class AddFeedTableViewController: UITableViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, SelectCityDelegate {
     
     
+    @IBOutlet weak var citySearchButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var firstMusicTitle: UITextField!
     @IBOutlet weak var playListCount: UITextField!
     @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var playListTextField: UITextField!
+    @IBOutlet weak var cityName: UITextField!
     
     
     
@@ -40,6 +42,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         playListCount.endEditing(true)
         dateTextField.endEditing(true)
         playListTextField.endEditing(true)
+        cityName.endEditing(true)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +55,71 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         
     }
     
+    @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
+        SVProgressHUD.show()
+        let userId = Auth.auth().currentUser!.uid
+        print("onSaveButtonPressed")
+        print(userId)
+        var DBRef = Database.database().reference().child("/\(userId)/feed/")
+        var STRef = Storage.storage().reference().child("/\(userId)/feed/")
+        let key = DBRef.childByAutoId().key
+        STRef = STRef.child(key)
+        
+        if imageView.image != nil {
+            let data = UIImageJPEGRepresentation(imageView.image!, 0.01)
+            STRef.putData(data!).observe(.success) { (snapshot) in
+                if snapshot.error != nil {
+                    
+                    SVProgressHUD.dismiss()
+                    let alertController = UIAlertController(title: "", message: "upload failed", preferredStyle: .alert)
+                    let alert = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alertController.addAction(alert)
+                    self.present(alertController, animated: true, completion: nil)
+                    print(snapshot.error)
+                }else {
+                    
+                    STRef.downloadURL(completion: { (url, error) in
+                        if error != nil {
+                            print("downloadError!!!")
+                            print(error)
+                            SVProgressHUD.dismiss()
+                            
+                            let alertController = UIAlertController(title: "", message: "download url error", preferredStyle: .alert)
+                            let alert = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            alertController.addAction(alert)
+                            self.present(alertController, animated: true, completion: nil)
+                        }else {
+                            SVProgressHUD.dismiss()
+                            print(url?.absoluteString)
+                            
+                            DBRef = DBRef.child(key)
+                            let dataDic : [String: AnyObject] =
+                                ["user" : userId as AnyObject ,
+                                 "imageUrl" : url?.absoluteString as AnyObject,
+                                 "title" : self.playListTextField.text as AnyObject,
+                                 "date": self.dateTextField.text as AnyObject,
+                                 "count" : self.playListCount.text as AnyObject,
+                                 "firstMusicTitle" : self.firstMusicTitle.text as AnyObject,
+                                 "cityName": self.cityName.text as AnyObject]
+                            DBRef.setValue(dataDic)
+                            let alertController = UIAlertController(title: "", message: "upload success", preferredStyle: .alert)
+                            let alert = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                                self.dismiss(animated: true, completion: nil)
+                            })
+                            //let alert = UIAlertAction(title: "OK", style: .default, handler: nil)
+                            alertController.addAction(alert)
+                            self.present(alertController, animated: true, completion: nil)
+                        }
+                        
+                    })
+                    
+                    
+                }
+            }
+        }
+        
+        
+    }
     @IBAction func onCancelButtonPressed(_ sender: UIBarButtonItem) {
         
         dismiss(animated: true, completion: nil)
@@ -59,68 +127,69 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     
     @IBAction func onSaveButtonPressed(_ sender: UIBarButtonItem) {
         
-//        SVProgressHUD.show()
-//        let userId = Auth.auth().currentUser!.uid
-//        print("onSaveButtonPressed")
-//        print(userId)
-//        var DBRef = Database.database().reference().child("/\(userId)/feed/")
-//        var STRef = Storage.storage().reference().child("/\(userId)/feed/")
-//        let key = DBRef.childByAutoId().key
-//        STRef = STRef.child(key)
-//        
-//        if imageView.image != nil {
-//            let data = UIImageJPEGRepresentation(imageView.image!, 0.01)
-//            STRef.putData(data!).observe(.success) { (snapshot) in
-//                if snapshot.error != nil {
-//                    
-//                    SVProgressHUD.dismiss()
-//                    let alertController = UIAlertController(title: "", message: "upload failed", preferredStyle: .alert)
-//                    let alert = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                    alertController.addAction(alert)
-//                    self.present(alertController, animated: true, completion: nil)
-//                    print(snapshot.error)
-//                }else {
-//                    
-//                    STRef.downloadURL(completion: { (url, error) in
-//                        if error != nil {
-//                            print("downloadError!!!")
-//                            print(error)
+//                SVProgressHUD.show()
+//                let userId = Auth.auth().currentUser!.uid
+//                print("onSaveButtonPressed")
+//                print(userId)
+//                var DBRef = Database.database().reference().child("/\(userId)/feed/")
+//                var STRef = Storage.storage().reference().child("/\(userId)/feed/")
+//                let key = DBRef.childByAutoId().key
+//                STRef = STRef.child(key)
+//
+//                if imageView.image != nil {
+//                    let data = UIImageJPEGRepresentation(imageView.image!, 0.01)
+//                    STRef.putData(data!).observe(.success) { (snapshot) in
+//                        if snapshot.error != nil {
+//
 //                            SVProgressHUD.dismiss()
-//                            
-//                            let alertController = UIAlertController(title: "", message: "download url error", preferredStyle: .alert)
+//                            let alertController = UIAlertController(title: "", message: "upload failed", preferredStyle: .alert)
 //                            let alert = UIAlertAction(title: "OK", style: .default, handler: nil)
 //                            alertController.addAction(alert)
 //                            self.present(alertController, animated: true, completion: nil)
+//                            print(snapshot.error)
 //                        }else {
-//                            SVProgressHUD.dismiss()
-//                            print(url?.absoluteString)
-//                            
-//                            DBRef = DBRef.child(key)
-//                            let dataDic : [String: AnyObject] =
-//                                ["user" : userId as AnyObject ,
-//                                 "imageUrl" : url?.absoluteString as AnyObject,
-//                                 "title" : self.playListTextField.text as AnyObject,
-//                                 "date": self.dateTextField.text as AnyObject,
-//                                 "count" : self.playListCount.text as AnyObject,
-//                                 "firstMusicTitle" : self.firstMusicTitle.text as AnyObject]
-//                            DBRef.setValue(dataDic)
-//                            let alertController = UIAlertController(title: "", message: "upload success", preferredStyle: .alert)
-//                            let alert = UIAlertAction(title: "OK", style: .default, handler: { (action) in
-//                                self.dismiss(animated: true, completion: nil)
+//
+//                            STRef.downloadURL(completion: { (url, error) in
+//                                if error != nil {
+//                                    print("downloadError!!!")
+//                                    print(error)
+//                                    SVProgressHUD.dismiss()
+//
+//                                    let alertController = UIAlertController(title: "", message: "download url error", preferredStyle: .alert)
+//                                    let alert = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                                    alertController.addAction(alert)
+//                                    self.present(alertController, animated: true, completion: nil)
+//                                }else {
+//                                    SVProgressHUD.dismiss()
+//                                    print(url?.absoluteString)
+//
+//                                    DBRef = DBRef.child(key)
+//                                    let dataDic : [String: AnyObject] =
+//                                        ["user" : userId as AnyObject ,
+//                                         "imageUrl" : url?.absoluteString as AnyObject,
+//                                         "title" : self.playListTextField.text as AnyObject,
+//                                         "date": self.dateTextField.text as AnyObject,
+//                                         "count" : self.playListCount.text as AnyObject,
+//                                         "firstMusicTitle" : self.firstMusicTitle.text as AnyObject,
+//                                            "cityName": self.cityName.text as AnyObject]
+//                                    DBRef.setValue(dataDic)
+//                                    let alertController = UIAlertController(title: "", message: "upload success", preferredStyle: .alert)
+//                                    let alert = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+//                                        self.dismiss(animated: true, completion: nil)
+//                                    })
+//                                    //let alert = UIAlertAction(title: "OK", style: .default, handler: nil)
+//                                    alertController.addAction(alert)
+//                                    self.present(alertController, animated: true, completion: nil)
+//                                }
+//
 //                            })
-//                            //let alert = UIAlertAction(title: "OK", style: .default, handler: nil)
-//                            alertController.addAction(alert)
-//                            self.present(alertController, animated: true, completion: nil)
+//
+//
 //                        }
-//                        
-//                    })
-//                    
-//                    
+//                    }
 //                }
-//            }
-//        }
-//        
-        
+//
+//
     }
     
     override func didReceiveMemoryWarning() {
@@ -240,5 +309,35 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
      // Pass the selected object to the new view controller.
      }
      */
+    @IBAction func citySearch(_ sender: UIButton) {
+        
+        // Do any additional setup after loading the view.
+        if cityName != nil{
+            
+        }
+        else
+        {
+            performSegue(withIdentifier: "CitySelect", sender: self)
+            
+        }
+        //ctrl + I
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue,sender: Any?){
+        if segue.identifier == "SelectCity"{
+            let denstinationVC = segue.destination as! UINavigationController
+            let destVC = denstinationVC.topViewController as! citySelectViewController
+            destVC.delegate = self
+        }
+    }
+    
+    func userEnteredCityName(city: String){
+        print(#function)
+        cityName.text = city
+        print(city)
+    }
     
 }
+
+
+

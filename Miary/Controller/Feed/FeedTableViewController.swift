@@ -82,6 +82,7 @@ class FeedTableViewController: UITableViewController {
                 newFeed.date = data["date"] as! String
                 newFeed.count = data["count"] as! String
                 newFeed.firstMusicTitle = data["firstMusicTitle"] as! String
+                newFeed.city = data["city"] as! String
                 self.feeds.append(newFeed)
                 
                 self.tableView.reloadData()
@@ -105,6 +106,7 @@ class FeedTableViewController: UITableViewController {
         cell.firstMusicTitle.text = feeds[indexPath.row].firstMusicTitle
         cell.feedDate.text = feeds[indexPath.row].date
         cell.musicCount.text = feeds[indexPath.row].count
+        
         
         
 

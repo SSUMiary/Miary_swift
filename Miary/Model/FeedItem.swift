@@ -15,19 +15,21 @@ class FeedItem {
     var firstMusicTitle : String
     var date : String
     var  count: String
+    var city :  String
     
-    init(key_ : String,image_ : UIImage, title_ : String, firstMusicTitle_ : String, date_ : String, count_:String) {
+    init(key_ : String,image_ : UIImage, title_ : String, firstMusicTitle_ : String, date_ : String, count_:String, city_: String) {
         self.key = key_
         self.image = image_
         self.title = title_
         self.firstMusicTitle = firstMusicTitle_
         self.date = date_
         self.count = count_
+        self.city = city_
         
     }
     
     convenience init(){
-        self.init(key_: "", image_: UIImage(), title_: "", firstMusicTitle_: "", date_: "", count_: "")
+        self.init(key_: "", image_: UIImage(), title_: "", firstMusicTitle_: "", date_: "", count_: "", city_: "")
         //self.init(key_ : "", image_ : UIImage(), firstMusicTitle_ : "", date_ : "", count_ : "")
     }
     

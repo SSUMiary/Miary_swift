@@ -34,7 +34,7 @@ class MapViewController: UIViewController , CLLocationManagerDelegate{
         super.viewDidLoad()
        
         // Do any additional setup after loading the view.
-        SVProgressHUD.show() //Dismiss Not Yet
+//        SVProgressHUD.show() //Dismiss Not Yet
         mapView.showsUserLocation = true
         
         if CLLocationManager.locationServicesEnabled() == true {
@@ -62,7 +62,7 @@ class MapViewController: UIViewController , CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let span = MKCoordinateSpanMake(0.75,0.75)
+        let span = MKCoordinateSpanMake(0.02,0.02)
         let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude), span: span)
       
         
@@ -138,6 +138,7 @@ class MapViewController: UIViewController , CLLocationManagerDelegate{
                 newLocation.date = data["data"] as! String
                 newLocation.count = data["count"] as! String
                 newLocation.firstMusicTitle = data["firstMusicTitle"] as! String
+                newLocation.city = data["city"] as! String
                 self.feeds.append(newLocation)
                 
                
