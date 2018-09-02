@@ -19,6 +19,9 @@ class MapViewController: UIViewController , CLLocationManagerDelegate{
     @IBOutlet weak var mapView: MKMapView!
     var feeds : [FeedItem] = []
     var locationManager = CLLocationManager()
+    var getLatitude : Double = 0
+    var getLongitude : Double = 0
+    var getTitle : String = ""
     
 //    var searchController: UISearchDisplayController!
 //    var annotation:MKAnnotation!
@@ -62,15 +65,21 @@ class MapViewController: UIViewController , CLLocationManagerDelegate{
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let span = MKCoordinateSpanMake(0.02,0.02)
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude), span: span)
-      
+        let span = MKCoordinateSpanMake(0.2,0.2)
+//        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude), span: span)
+       // let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(getLatitude, getLongitude)
+        let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(37.496453477070411, 126.95687633939087)
+        let region : MKCoordinateRegion = MKCoordinateRegionMake(location, span)
         
         self.mapView.setRegion(region, animated: true)
         
         
         
         let annotation = MKPointAnnotation()
+        
+        annotation.coordinate = location
+        annotation.title = getTitle
+        mapView.addAnnotation(annotation)
         
         
 //        annotation.coordinate = location
@@ -87,25 +96,30 @@ class MapViewController: UIViewController , CLLocationManagerDelegate{
         // Dispose of any resources that can be recreated.
     }
     
-    func searchLocationManager(_ manager: CLLocationManager, didUpdateLocations location : [CLLocation]){
-        let location  = location[location.count - 1]
-        if location.horizontalAccuracy > 0{
-            locationManager.stopUpdatingLocation()
-            locationManager.delegate = nil
-            
-            let latitude = String(location.coordinate.latitude)
-            let longitude = String(location.coordinate.longitude)
-            
-            let params : [String : String] = ["lat" : latitude, "lon" : longitude]
-            
-        }
-    }
+//    func searchLocationManager(_ manager: CLLocationManager, didUpdateLocations location : [CLLocation]){
+//        let location  = location[location.count - 1]
+//        if location.horizontalAccuracy > 0{
+//            locationManager.stopUpdatingLocation()
+//            locationManager.delegate = nil
+//
+//            let latitude = String(location.coordinate.latitude)
+//            let longitude = String(location.coordinate.longitude)
+//
+//            let params : [String : String] = ["lat" : latitude, "lon" : longitude]
+//
+//        }
+//    }
     
-    func getLocationInfo(){
+    func downLoadFromServer(){
+        
+        SVProgressHUD.show()
+        
+        print("DownLoad From Server")
+        
         let userId = Auth.auth().currentUser!.uid
         let DBRef = Database.database().reference().child("\(userId)/feed/")
         let STRef = Database.database().reference().child("\(userId)/feed/")
-        let rootRef = Database.database().reference()
+        let rootRef = Database.database().reference().child("\(userId)/feed")
         
         
         rootRef.observe(.value) { (snapshot) in
@@ -133,14 +147,19 @@ class MapViewController: UIViewController , CLLocationManagerDelegate{
                     
                 
                 }
-                
+//
                 newLocation.title = data["title"] as! String
-                newLocation.date = data["data"] as! String
-                newLocation.count = data["count"] as! String
-                newLocation.firstMusicTitle = data["firstMusicTitle"] as! String
+//                newLocation.date = data["data"] as! String
+//                newLocation.count = data["count"] as! String
+//                newLocation.firstMusicTitle = data["firstMusicTitle"] as! String
                 newLocation.city = data["city"] as! String
+                newLocation.latitude = data["latitude"] as! Double
+                newLocation.longitude = data["longitude"] as! Double
                 self.feeds.append(newLocation)
                 
+                self.getLatitude = newLocation.latitude
+                self.getLongitude = newLocation.longitude
+                self.getTitle = newLocation.title
                
                 SVProgressHUD.dismiss()
             }

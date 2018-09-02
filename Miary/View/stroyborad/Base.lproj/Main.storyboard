@@ -249,7 +249,13 @@
                             <outlet property="delegate" destination="n99-2u-F4f" id="dh6-z8-cPG"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Feed" id="y3M-zP-JqB"/>
+                    <navigationItem key="navigationItem" title="Feed" id="y3M-zP-JqB">
+                        <barButtonItem key="rightBarButtonItem" title="Calendar" id="EkJ-Kh-cvR">
+                            <connections>
+                                <segue destination="Ndw-wZ-TYs" kind="show" id="iN6-0Z-iTv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="Mts-rw-eOt" kind="show" identifier="feedDetail" animates="NO" id="por-oX-a2B"/>
                     </connections>
@@ -1109,6 +1115,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LiS-qA-XYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3507" y="3135"/>
+        </scene>
+        <!--Calendar View Controller-->
+        <scene sceneID="OLO-ex-zpO">
+            <objects>
+                <viewController id="Ndw-wZ-TYs" customClass="CalendarViewController" customModule="Miary" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wl7-Hw-to1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jvm-km-ygO" customClass="VAWeekDaysView" customModule="VACalendar">
+                                <rect key="frame" x="0.0" y="116" width="375" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jvm-km-ygO" firstAttribute="top" secondItem="iOJ-eA-9Hy" secondAttribute="top" id="8Fy-QR-fLB"/>
+                            <constraint firstItem="jvm-km-ygO" firstAttribute="leading" secondItem="iOJ-eA-9Hy" secondAttribute="leading" id="TcN-Et-iYC"/>
+                            <constraint firstItem="jvm-km-ygO" firstAttribute="trailing" secondItem="iOJ-eA-9Hy" secondAttribute="trailing" id="xPx-tO-JOb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="iOJ-eA-9Hy"/>
+                    </view>
+                    <connections>
+                        <outlet property="weekDaysView" destination="jvm-km-ygO" id="b6S-IQ-Fua"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6v8-2D-nPs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4316" y="-521.28935532233891"/>
         </scene>
         <!--Item-->
         <scene sceneID="AWT-GG-SOE">

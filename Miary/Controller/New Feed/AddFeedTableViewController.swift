@@ -15,6 +15,8 @@ import FirebaseAuth
 class AddFeedTableViewController: UITableViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, SelectCityDelegate,onPlayListSelectedListener {
     
     
+    
+    
     @IBOutlet weak var citySearchButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     
@@ -340,11 +342,14 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
             
         }
     }
-    
-    func userEnteredCityName(city: String){
+    func userEnteredCityName(city: String, latitude: Double, longitude: Double){
         print(#function)
-        cityName.text = city
         print(city)
+        print(latitude)
+        print(longitude)
+        
+        cityName.text = city
+        
     }
     
 }

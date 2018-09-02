@@ -11,7 +11,11 @@ import UIKit
 import MapKit
 
 protocol SelectCityDelegate {
-    func userEnteredCityName(city : String)
+    func userEnteredCityName(city : String, latitude: Double , longitude: Double)
+}
+
+struct CityInfo {
+    
 }
 
 class citySelectViewController: UIViewController, UISearchBarDelegate{
@@ -20,6 +24,8 @@ class citySelectViewController: UIViewController, UISearchBarDelegate{
     var pinLatitude : Double? = nil
     var pinLongitude : Double? = nil
     var pinText : String? = nil
+
+    
    
     
     @IBAction func SearchButton(_ sender: Any) {
@@ -78,24 +84,25 @@ class citySelectViewController: UIViewController, UISearchBarDelegate{
                 print("longitude: \(longitude)")
                 print("text: \(searchBar.text)")
                 
+                self.pinLatitude = latitude
+                self.pinLongitude = longitude
+                self.pinText = searchBar.text
                 
-                self.pinLatitude = latitude!
-                self.pinLongitude = longitude!
-                self.pinText = searchBar.text!
             }
         }
     }
     @IBAction func SaveButtonPressed(_ sender: Any) {
        
+        
         print("pinLatitude: \(pinLatitude)")
         print("pinLongitude: \(pinLongitude)")
 
         
-        let cityName = pinText!
+        let cityName = pinText
         print("City: \(cityName)")
         
         
-        delegate?.userEnteredCityName(city: cityName)
+        delegate?.userEnteredCityName(city: pinText!, latitude: pinLatitude!, longitude: pinLongitude!)
         self.dismiss(animated: true
             , completion: nil)
         

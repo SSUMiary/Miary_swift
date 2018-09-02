@@ -141,6 +141,7 @@ PODS:
   - TwitterCore (3.2.0)
   - TwitterKit (3.4.0):
     - TwitterCore (>= 3.1.0)
+  - VACalendar (1.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
@@ -161,6 +162,7 @@ DEPENDENCIES:
   - JSONWebToken
   - SVProgressHUD
   - SwiftyJSON
+  - VACalendar
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -196,6 +198,7 @@ SPEC REPOS:
     - SwiftyJSON
     - TwitterCore
     - TwitterKit
+    - VACalendar
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
@@ -230,7 +233,8 @@ SPEC CHECKSUMS:
   SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: bc7bd086b9b724a1d888745a054e1d0b1ecc4f3f
+  VACalendar: f189d1b713b8a38d85fe679afef5dc21105c6259
 
-PODFILE CHECKSUM: b9eeaa51ab5ce0186038ae63234c022ed84b54e8
+PODFILE CHECKSUM: 9519aec77b58b9ce63e3fbbc697a7b9f337aa427
 
 COCOAPODS: 1.5.3

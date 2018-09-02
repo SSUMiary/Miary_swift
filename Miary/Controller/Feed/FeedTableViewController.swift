@@ -140,6 +140,7 @@ class FeedTableViewController: UITableViewController {
             var newFeed = FeedItem()
             do{
                 newFeed.key = snapshot.key
+                
                 let str = data["imageUrl"] as! String
                 
                 let imageUrl = URL(string:str)
