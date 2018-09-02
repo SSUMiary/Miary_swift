@@ -1124,8 +1124,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jvm-km-ygO" customClass="VAWeekDaysView" customModule="VACalendar">
-                                <rect key="frame" x="0.0" y="116" width="375" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvm-km-ygO" customClass="VAWeekDaysView" customModule="VACalendar">
+                                <rect key="frame" x="0.0" y="64" width="375" height="102"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -1133,6 +1133,7 @@
                         <constraints>
                             <constraint firstItem="jvm-km-ygO" firstAttribute="top" secondItem="iOJ-eA-9Hy" secondAttribute="top" id="8Fy-QR-fLB"/>
                             <constraint firstItem="jvm-km-ygO" firstAttribute="leading" secondItem="iOJ-eA-9Hy" secondAttribute="leading" id="TcN-Et-iYC"/>
+                            <constraint firstItem="iOJ-eA-9Hy" firstAttribute="bottom" secondItem="jvm-km-ygO" secondAttribute="bottom" constant="452" id="Yt4-od-jPH"/>
                             <constraint firstItem="jvm-km-ygO" firstAttribute="trailing" secondItem="iOJ-eA-9Hy" secondAttribute="trailing" id="xPx-tO-JOb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iOJ-eA-9Hy"/>

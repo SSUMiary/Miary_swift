@@ -200,6 +200,13 @@
 			<key>orderHint</key>
 			<integer>29</integer>
 		</dict>
+		<key>VACalendar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>30</integer>
+		</dict>
 		<key>leveldb-library.xcscheme</key>
 		<dict>
 			<key>isShown</key>

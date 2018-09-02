@@ -34,8 +34,8 @@
 		78A9F4EA21355FD100352358 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A9F4E921355FD100352358 /* AlbumViewController.swift */; };
 		78C5B07421218AC900EFFC21 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B07321218AC900EFFC21 /* SettingsViewController.swift */; };
 		78C5B07821218C4700EFFC21 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B07721218C4700EFFC21 /* SettingsTableViewCell.swift */; };
-		78C5B07F2122C1A200EFFC21 /* PlayListInFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B07E2122C1A200EFFC21 /* PlayListInFeedViewController.swift */; };
 		78C5B0822122C31300EFFC21 /* MusicListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B0812122C31300EFFC21 /* MusicListTableViewCell.swift */; };
+		78D882E2213BF84F00B981BB /* PlayListInFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B07E2122C1A200EFFC21 /* PlayListInFeedViewController.swift */; };
 		78DC001C2120340100AFD5D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DC001B2120340100AFD5D3 /* AppDelegate.swift */; };
 		78DC00212120340100AFD5D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78DC001F2120340100AFD5D3 /* Main.storyboard */; };
 		78DC00232120340200AFD5D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78DC00222120340200AFD5D3 /* Assets.xcassets */; };
@@ -565,9 +565,8 @@
 				78F249E12136806A000BF73B /* SimpleSongModel.swift in Sources */,
 				78C5B07421218AC900EFFC21 /* SettingsViewController.swift in Sources */,
 				78A9F4D92132BDA200352358 /* PlayListTableViewCell.swift in Sources */,
-				78C5B07F2122C1A200EFFC21 /* PlayListInFeedViewController.swift in Sources */,
+				78D882E2213BF84F00B981BB /* PlayListInFeedViewController.swift in Sources */,
 				78A9F4DB2132BF3600352358 /* PlayListItem.swift in Sources */,
-				78C5B07F2122C1A200EFFC21 /* MusicSearchViewController.swift in Sources */,
 				584EA2D8213BDCCF00DEACFC /* View.swift in Sources */,
 				584EA2CF213BA97000DEACFC /* CalendarViewController.swift in Sources */,
 				78DCC50221209CE200D20C0C /* AddFeedTableViewController.swift in Sources */,
