@@ -68,6 +68,7 @@ class FeedTableViewController: UITableViewController {
             var newFeed = FeedItem()
             do{
                 newFeed.key = snapshot.key
+                
                 let str = data["imageUrl"] as! String
                 
                 let imageUrl = URL(string:str)
@@ -78,10 +79,10 @@ class FeedTableViewController: UITableViewController {
                 }catch{
                     
                 }
-                newFeed.title = data["title"] as! String
-                newFeed.date = data["date"] as! String
-                newFeed.count = data["count"] as! String
-                newFeed.firstMusicTitle = data["firstMusicTitle"] as! String
+//                newFeed.title = data["title"] as! String
+//                newFeed.date = data["date"] as! String
+//                newFeed.count = data["count"] as! String
+//                newFeed.firstMusicTitle = data["firstMusicTitle"] as! String
                 newFeed.city = data["city"] as! String
                 self.feeds.append(newFeed)
                 

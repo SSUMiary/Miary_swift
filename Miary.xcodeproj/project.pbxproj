@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		58232DBD2136797E00F2A9F8 /* CitySelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58232DBC2136797E00F2A9F8 /* CitySelectViewController.swift */; };
 		5827BC1C212BF1B30074AEBE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5827BC1B212BF1B30074AEBE /* MapKit.framework */; };
+		584EA2CF213BA97000DEACFC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584EA2CE213BA97000DEACFC /* CalendarViewController.swift */; };
+		584EA2D8213BDCCF00DEACFC /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584EA2D7213BDCCF00DEACFC /* View.swift */; };
 		7875343A2120BBC100A8F411 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 787534392120BBC100A8F411 /* Launch Screen.storyboard */; };
 		7875343C2120BDDA00A8F411 /* background_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 7875343B2120BDDA00A8F411 /* background_image.png */; };
 		787534412120C53200A8F411 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787534402120C53200A8F411 /* FeedItem.swift */; };
@@ -37,6 +39,8 @@
 		2BE19B22FE6DFC8E7ACDA44A /* Pods_Miary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Miary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		58232DBC2136797E00F2A9F8 /* CitySelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectViewController.swift; sourceTree = "<group>"; };
 		5827BC1B212BF1B30074AEBE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		584EA2CE213BA97000DEACFC /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		584EA2D7213BDCCF00DEACFC /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		787534392120BBC100A8F411 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7875343B2120BDDA00A8F411 /* background_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_image.png; sourceTree = "<group>"; };
 		787534402120C53200A8F411 /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
@@ -77,6 +81,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		584EA2D0213BAD3500DEACFC /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				584EA2CE213BA97000DEACFC /* CalendarViewController.swift */,
+				584EA2D7213BDCCF00DEACFC /* View.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 		687645E10F0E18B8B342ACCE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +217,7 @@
 				78C5B07C2122C15200EFFC21 /* Setting */,
 				78C5B07B2122C14C00EFFC21 /* New Feed */,
 				78C5B07A2122C14700EFFC21 /* Feed */,
+				584EA2D0213BAD3500DEACFC /* Calendar */,
 				78C5B0792122C14300EFFC21 /* Map */,
 			);
 			path = Controller;
@@ -391,11 +405,13 @@
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
+				"${BUILT_PRODUCTS_DIR}/VACalendar/VACalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -413,11 +429,13 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VACalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -439,6 +457,8 @@
 				78C5B07821218C4700EFFC21 /* SettingsTableViewCell.swift in Sources */,
 				78C5B07421218AC900EFFC21 /* SettingsViewController.swift in Sources */,
 				78C5B07F2122C1A200EFFC21 /* MusicSearchViewController.swift in Sources */,
+				584EA2D8213BDCCF00DEACFC /* View.swift in Sources */,
+				584EA2CF213BA97000DEACFC /* CalendarViewController.swift in Sources */,
 				78DCC50221209CE200D20C0C /* AddFeedTableViewController.swift in Sources */,
 				78DCC50C2120AD1C00D20C0C /* TabBarViewController.swift in Sources */,
 				78DC001C2120340100AFD5D3 /* AppDelegate.swift in Sources */,
