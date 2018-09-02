@@ -10,6 +10,7 @@ pod 'FirebaseUI/Facebook'
 pod 'FirebaseUI/Twitter'
 pod 'Firebase/Core'
 pod 'FirebaseUI/Phone'
+pod 'JSONWebToken'
 pod 'SwiftyJSON'
 
 pod 'FBSDKLoginKit'

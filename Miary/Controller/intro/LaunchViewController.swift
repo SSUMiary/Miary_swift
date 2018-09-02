@@ -8,7 +8,7 @@
 
 import UIKit
 import Firebase
-
+import FirebaseAuth
 class LaunchViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -17,13 +17,7 @@ class LaunchViewController: UIViewController {
         // Do any additional setup after loading the view.
         if Auth.auth().currentUser != nil{
             performSegue(withIdentifier: "goToMainWithOutLogin", sender: self)
-//
-//            let auth = Auth.auth()
-//            do {
-//                try auth.signOut()
-//
-//            }
-//            catch{}
+
         }else{
             performSegue(withIdentifier: "goToLogin", sender: self)
         }
