@@ -602,6 +602,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <size key="freeformSize" width="375" height="900"/>
                     <connections>
+                        <outlet property="DateFieldText" destination="acj-72-dvm" id="XhJ-BN-Phi"/>
                         <outlet property="cityName" destination="PYV-u0-Dii" id="5A5-3l-BKu"/>
                         <outlet property="citySearchButton" destination="YCj-YO-lQC" id="KcT-84-9RZ"/>
                         <outlet property="dateTextField" destination="acj-72-dvm" id="wXB-cX-eOz"/>

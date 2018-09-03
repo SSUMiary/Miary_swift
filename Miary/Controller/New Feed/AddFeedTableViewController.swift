@@ -24,11 +24,38 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     
     @IBOutlet weak var citySearchButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
-
-    @IBOutlet weak var dateTextField: UITextField!
+    
+    @IBOutlet weak var DateFieldText: UITextField!
+    @IBOutlet weak var firstMusicTitle: UITextField!
+    @IBOutlet weak var playListCount: UITextField!
     @IBOutlet weak var playListTextField: UITextField!
     @IBOutlet weak var cityName: UITextField!
+  
+    var datePicker: UIDatePicker{
+        get{
+            let datePicker = UIDatePicker()
+            datePicker.date = Date()
+            datePicker.datePickerMode = .date
+            datePicker.addTarget(self, action: #selector(onDateChanged(sender:)), for: .valueChanged)
+            
+            return datePicker
+        }
+    }
     
+    var accessoryToolbar: UIToolbar{
+        get{
+            let accessoryToolbar = UIToolbar()
+            accessoryToolbar.sizeToFit()
+            
+            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDoneButtonTapped(sender:)))
+            
+            let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+            
+            accessoryToolbar.items = [flexibleSpace,doneButton]
+
+            return accessoryToolbar
+        }
+    }
     let playList = PlayListItem()
     var cityLatitude : Double = 0.0
     var cityLongitude : Double = 0.0
@@ -39,6 +66,29 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        setupUI()
+    }
+    
+    func setupUI(){
+        DateFieldText.inputView = datePicker
+        DateFieldText.inputAccessoryView = accessoryToolbar
+        DateFieldText.text = Date().mediumDateString
+        
+    }
+    
+    @objc func onDateChanged(sender: UIDatePicker){
+        DateFieldText.text = sender.date.mediumDateString
+    }
+    
+    @objc func onDoneButtonTapped(sender: UIBarButtonItem){
+        if DateFieldText.isFirstResponder{
+            DateFieldText.resignFirstResponder()
+        }
+    }
+    
+    func onPlayListSelected(playListKey: String) {
         
     }
     
