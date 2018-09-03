@@ -15,7 +15,7 @@ import SwiftyJSON
 
 
 protocol onPlayListSelectedListener{
-    func onPlayListSelected(playList : PlayListItem)
+    func onPlayListSelected(playList_ : PlayListItem)
 }
 
 class PlayListInFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {

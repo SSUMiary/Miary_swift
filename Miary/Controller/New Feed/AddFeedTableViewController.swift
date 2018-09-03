@@ -13,10 +13,7 @@ import SVProgressHUD
 import FirebaseAuth
 
 class AddFeedTableViewController: UITableViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, SelectCityDelegate,onPlayListSelectedListener {
-    func onPlayListSelected(playList : PlayListItem) {
-        
-    }
-    
+  
     
     
     @IBOutlet weak var playListAlbumCover :UIImageView!
@@ -26,9 +23,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var DateFieldText: UITextField!
-    @IBOutlet weak var firstMusicTitle: UITextField!
-    @IBOutlet weak var playListCount: UITextField!
-    @IBOutlet weak var playListTextField: UITextField!
+    @IBOutlet weak var diaryTitle: UITextField!
     @IBOutlet weak var cityName: UITextField!
   
     var datePicker: UIDatePicker{
@@ -56,7 +51,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
             return accessoryToolbar
         }
     }
-    let playList = PlayListItem()
+    var playList : PlayListItem = PlayListItem()
     var cityLatitude : Double = 0.0
     var cityLongitude : Double = 0.0
     
@@ -69,6 +64,10 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         
         
         setupUI()
+    }
+    
+    func onPlayListSelected(playList_ : PlayListItem) {
+        self.playList = playList_
     }
     
     func setupUI(){
@@ -96,13 +95,20 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         print(#function)
         
         //dateTextField.endEditing(true)
-        playListTextField.endEditing(true)
+        diaryTitle.endEditing(true)
         cityName.endEditing(true)
     }
     
     @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
         let newFeed = FeedItem()
     
+        newFeed.image = imageView.image!
+        newFeed.title = diaryTitle.text!
+        newFeed.date = DateFieldText.text!
+        newFeed.latitude = "\(cityLatitude)"
+        newFeed.longitude = "\(cityLongitude)"
+        newFeed.playListKey = playList.key
+        newFeed.city = cityName.text!
         
         SVProgressHUD.show()
         FeedManager.instance.makeNewFeed(feedInfo: newFeed) {
@@ -265,9 +271,8 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     }
     func userEnteredCityName(city: String, latitude: Double, longitude: Double){
         print(#function)
-        print(city)
-        print(latitude)
-        print(longitude)
+        cityLongitude = longitude
+        cityLatitude = latitude
         
         cityName.text = city
         

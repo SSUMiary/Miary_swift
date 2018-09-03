@@ -126,9 +126,9 @@ class FeedManager{
                 newItem.title = item["title"] as! String
                 newItem.date = item["date"] as! String
                 newItem.count = item["count"] as! String
-                newItem.city = data["city"] as! String
-                newItem.longitude = data["longitude"] as! Double
-                newItem.latitude = data["latitude"] as! Double
+                newItem.city = item["cityName"] as! String
+                newItem.longitude = item["longitude"] as! String
+                newItem.latitude = item["latitude"] as! String
                 
                 self.feedList.append(newItem)
             }
