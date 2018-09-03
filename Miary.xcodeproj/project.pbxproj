@@ -11,6 +11,7 @@
 		5827BC1C212BF1B30074AEBE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5827BC1B212BF1B30074AEBE /* MapKit.framework */; };
 		584EA2CF213BA97000DEACFC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584EA2CE213BA97000DEACFC /* CalendarViewController.swift */; };
 		584EA2D8213BDCCF00DEACFC /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584EA2D7213BDCCF00DEACFC /* View.swift */; };
+		58B3B8A9213D40EC000DA861 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B3B8A8213D40EC000DA861 /* DateExtensions.swift */; };
 		7875343A2120BBC100A8F411 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 787534392120BBC100A8F411 /* Launch Screen.storyboard */; };
 		7875343C2120BDDA00A8F411 /* background_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 7875343B2120BDDA00A8F411 /* background_image.png */; };
 		787534412120C53200A8F411 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787534402120C53200A8F411 /* FeedItem.swift */; };
@@ -57,6 +58,7 @@
 		5827BC1B212BF1B30074AEBE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		584EA2CE213BA97000DEACFC /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		584EA2D7213BDCCF00DEACFC /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		58B3B8A8213D40EC000DA861 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		787534392120BBC100A8F411 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7875343B2120BDDA00A8F411 /* background_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_image.png; sourceTree = "<group>"; };
 		787534402120C53200A8F411 /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			children = (
 				78C5B07E2122C1A200EFFC21 /* PlayListInFeedViewController.swift */,
 				78DCC50121209CE200D20C0C /* AddFeedTableViewController.swift */,
+				58B3B8A8213D40EC000DA861 /* DateExtensions.swift */,
 			);
 			path = "New Feed";
 			sourceTree = "<group>";
@@ -554,6 +557,7 @@
 				78A9F4CB2132B30400352358 /* SearchResult.swift in Sources */,
 				78A9F4CD2132B30400352358 /* Relationships.swift in Sources */,
 				78A9F4CA2132B30400352358 /* Attributes.swift in Sources */,
+				58B3B8A9213D40EC000DA861 /* DateExtensions.swift in Sources */,
 				78A9F4D52132BA6800352358 /* PlayListController.swift in Sources */,
 				78A9F4C72132B30400352358 /* Artwork.swift in Sources */,
 				78A9F4E12132C5E000352358 /* SearchMusicViewController.swift in Sources */,

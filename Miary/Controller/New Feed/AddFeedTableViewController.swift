@@ -20,14 +20,37 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     @IBOutlet weak var citySearchButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var DateFieldText: UITextField!
     @IBOutlet weak var firstMusicTitle: UITextField!
     @IBOutlet weak var playListCount: UITextField!
-    @IBOutlet weak var dateTextField: UITextField!
     @IBOutlet weak var playListTextField: UITextField!
     @IBOutlet weak var cityName: UITextField!
+  
+    var datePicker: UIDatePicker{
+        get{
+            let datePicker = UIDatePicker()
+            datePicker.date = Date()
+            datePicker.datePickerMode = .date
+            datePicker.addTarget(self, action: #selector(onDateChanged(sender:)), for: .valueChanged)
+            
+            return datePicker
+        }
+    }
     
-    
-    
+    var accessoryToolbar: UIToolbar{
+        get{
+            let accessoryToolbar = UIToolbar()
+            accessoryToolbar.sizeToFit()
+            
+            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDoneButtonTapped(sender:)))
+            
+            let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+            
+            accessoryToolbar.items = [flexibleSpace,doneButton]
+
+            return accessoryToolbar
+        }
+    }
     @IBOutlet var labels: [UILabel]!
     
    
@@ -35,7 +58,9 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         super.viewDidLoad()
         
         let playListManager = PlayListManager()
-       
+        
+        setupUI()
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -43,6 +68,23 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         
+    }
+    
+    func setupUI(){
+        DateFieldText.inputView = datePicker
+        DateFieldText.inputAccessoryView = accessoryToolbar
+        DateFieldText.text = Date().mediumDateString
+        
+    }
+    
+    @objc func onDateChanged(sender: UIDatePicker){
+        DateFieldText.text = sender.date.mediumDateString
+    }
+    
+    @objc func onDoneButtonTapped(sender: UIBarButtonItem){
+        if DateFieldText.isFirstResponder{
+            DateFieldText.resignFirstResponder()
+        }
     }
     
     func onPlayListSelected(playListKey: String) {
@@ -53,7 +95,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         print(#function)
         firstMusicTitle.endEditing(true)
         playListCount.endEditing(true)
-        dateTextField.endEditing(true)
+        DateFieldText.endEditing(true)
         playListTextField.endEditing(true)
         cityName.endEditing(true)
     }
@@ -100,7 +142,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
                                 ["user" : userId as AnyObject ,
                                  "imageUrl" : url?.absoluteString as AnyObject,
                                  "title" : self.playListTextField.text as AnyObject,
-                                 "date": self.dateTextField.text as AnyObject,
+                                 "date": self.DateFieldText.text as AnyObject,
                                  "count" : self.playListCount.text as AnyObject,
                                  "firstMusicTitle" : self.firstMusicTitle.text as AnyObject,
                                  "cityName": self.cityName.text as AnyObject]
