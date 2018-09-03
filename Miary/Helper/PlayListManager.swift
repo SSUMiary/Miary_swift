@@ -14,18 +14,16 @@ import FacebookCore
 import FBSDKCoreKit
 import FirebaseDatabase
 import FirebaseStorage
-import SVProgressHUD
+
 import FirebaseAuth
 import SwiftyJSON
 class PlayListManager{
     
-    
-    
-    
+    var playLists : [PlayListItem] = []
+    static let instance : PlayListManager = PlayListManager()
     let apiClient = ApiClient()
-    static func makeNewPlayList(playListName : String){
-        SVProgressHUD.show()
-        var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+    func makeNewPlayList(playListName : String, completion : @escaping ()->Void){
+        
         let userId = MiaryLoginManager.getUserInfo().uid
         
         var DBRef = Database.database().reference().child("\(userId)/playLists/")
@@ -38,12 +36,12 @@ class PlayListManager{
         let data = UIImagePNGRepresentation(logoImage!)
         STRef.putData(data!).observe(.success) { (snapshot) in
             if let error = snapshot.error {
-                SVProgressHUD.dismiss()
+                
                 return}else{
                 //success
                 STRef.downloadURL(completion: { (url, error) in
                     if let error = snapshot.error{
-                        SVProgressHUD.dismiss()
+                        
                         return}else{
                         let dataDic : [String: AnyObject] =
                             ["user" : userId as AnyObject,
@@ -53,7 +51,7 @@ class PlayListManager{
                              "count" : " " as AnyObject,
                              "firstMusicTitle" : " " as AnyObject]
                         DBRef.setValue(dataDic)
-                        SVProgressHUD.dismiss()
+                        completion()
                     }
                 })
             }
@@ -74,6 +72,55 @@ class PlayListManager{
         
     }
     
+    func getAllPlayListsFromManager() -> [PlayListItem]{
+        return playLists
+    }
+    
+    func getSpecificPlayList(playListKey : String, completion : @escaping (PlayListItem) -> Void) {
+        
+        let mainCompletion : (PlayListItem) -> Void = {(item) -> Void in
+            DispatchQueue.main.async {
+                completion(item)
+            }
+        }
+        
+        let userId = MiaryLoginManager.getUserInfo().uid
+        let DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)/")
+        DBRef.observe(.value) { (snapshot) in
+            //print(#function)
+            let data = snapshot.value as! NSDictionary
+            let keys = data.allKeys as! [String]
+            let playListItem = PlayListItem()
+            playListItem.songs = []
+            playListItem.key = snapshot.key
+            playListItem.user = userId
+            
+            for k in keys{
+                if k == "title" {
+                    playListItem.playListTitle = data[k] as! String
+                    
+                }else if k == "count"{}
+                else if k == "date" {}
+                else if k == "user"{playListItem.user = data[k] as! String}
+                else if k == "imageUrl"{}
+                else if k == "firstMusicTitle"{}
+                else{
+                    let newSong = SimpleSongModel()
+                    let item = data[k] as! Dictionary<String,String>
+                    newSong.songKey = k
+                    newSong.artist = item["artist"]
+                    newSong.songName = item["songName"]
+                    newSong.imageURL = item["imageURL"]
+                    newSong.songID = item["songID"]
+                    playListItem.songs.append(newSong)
+                    
+                }
+                
+            }
+            mainCompletion(playListItem)
+        }
+    }
+    
     func getAllPlayLists(completion : @escaping (_ lists : [PlayListItem])-> Void){
         
         print(#function)
@@ -87,8 +134,6 @@ class PlayListManager{
         let userId = MiaryLoginManager.getUserInfo().uid
         var DBRef = Database.database().reference().child("\(userId)/playLists")
         var STRef = Storage.storage().reference().child("\(userId)/playLists")
-        var lists : [PlayListItem] = []
-        
         
         DBRef.observe(.value) { (snapshot) in
             //print(#function)
@@ -99,7 +144,7 @@ class PlayListManager{
                 return
             }
             
-            if lists.count>0 { lists = []}
+            if self.playLists.count>0 { self.playLists = []}
             
             let data = snapshot.value as! NSDictionary
             let keys = data.allKeys as! [String]
@@ -115,17 +160,30 @@ class PlayListManager{
                 }catch{}
                 newPlayList.key = k
                 newPlayList.playListTitle = item["title"] as! String
-                newPlayList.firstMusicTitle = item["firstMusicTitle"] as! String
                 newPlayList.user = item["user"] as! String
-                newPlayList.date = item["date"] as! String
                 newPlayList.musicCount = item["count"] as! String
-                lists.append(newPlayList)
+                self.playLists.append(newPlayList)
             }
-            mainCompletion(lists)
+            mainCompletion(self.playLists)
         }
     }
     
-
+    
+    func deleteMusicList(playListKey : String, completion : @escaping ()->Void) {
+        
+        let userId = MiaryLoginManager.getUserInfo().uid
+        var DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)/")
+        var STRef = Storage.storage().reference().child("\(userId)/playLists/\(playListKey)/")
+        STRef.delete { (error) in
+            print(#function)
+            print(error)
+            
+        }
+        DBRef.removeValue()
+        completion()
+        
+    }
+    
     func deleteMusicFromPlaylist(playListKey : String, songKey: String){
         
         
@@ -135,6 +193,7 @@ class PlayListManager{
         DBRef.removeValue()
         
     }
+    
     
     func addMusicToPlayList(albumID : String, album : Resource, playListKey : String, index : Int){
         

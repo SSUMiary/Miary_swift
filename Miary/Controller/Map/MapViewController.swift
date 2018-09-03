@@ -23,21 +23,11 @@ class MapViewController: UIViewController , CLLocationManagerDelegate{
     var getLongitude : Double = 0
     var getTitle : String = ""
     
-//    var searchController: UISearchDisplayController!
-//    var annotation:MKAnnotation!
-//    var localSearchRequest:MKLocalSearchRequest!
-//    var localSearch:MKLocalSearch!
-//    var localSearchResponse:MKLocalSearchResponse!
-//    var error:NSError!
-//    var pointAnnotation:MKPointAnnotation!
-//    var pinAnnotation:MKPointAnnotation!
-//    var pinAnnotationView:MKPinAnnotationView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         // Do any additional setup after loading the view.
-//        SVProgressHUD.show() //Dismiss Not Yet
+        //        SVProgressHUD.show() //Dismiss Not Yet
         mapView.showsUserLocation = true
         
         if CLLocationManager.locationServicesEnabled() == true {
@@ -47,7 +37,7 @@ class MapViewController: UIViewController , CLLocationManagerDelegate{
                 CLLocationManager.authorizationStatus() == .notDetermined
             {
                 locationManager.requestWhenInUseAuthorization()
-        }
+            }
             
             locationManager.desiredAccuracy = 1.0
             locationManager.delegate = self
@@ -60,18 +50,20 @@ class MapViewController: UIViewController , CLLocationManagerDelegate{
         }
         
     }
-
+    
     //MARK: - CLLocationManger Delegates
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let span = MKCoordinateSpanMake(0.2,0.2)
-//        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude), span: span)
-       // let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(getLatitude, getLongitude)
+        //        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude), span: span)
+        // let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(getLatitude, getLongitude)
         let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(37.496453477070411, 126.95687633939087)
         let region : MKCoordinateRegion = MKCoordinateRegionMake(location, span)
         
         self.mapView.setRegion(region, animated: true)
+        
+        
         
         
         
@@ -82,9 +74,6 @@ class MapViewController: UIViewController , CLLocationManagerDelegate{
         mapView.addAnnotation(annotation)
         
         
-//        annotation.coordinate = location
-//        annotation.title = "Test"
-//        map.addAnnotaion(annotation)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error : Error){
@@ -96,89 +85,6 @@ class MapViewController: UIViewController , CLLocationManagerDelegate{
         // Dispose of any resources that can be recreated.
     }
     
-//    func searchLocationManager(_ manager: CLLocationManager, didUpdateLocations location : [CLLocation]){
-//        let location  = location[location.count - 1]
-//        if location.horizontalAccuracy > 0{
-//            locationManager.stopUpdatingLocation()
-//            locationManager.delegate = nil
-//
-//            let latitude = String(location.coordinate.latitude)
-//            let longitude = String(location.coordinate.longitude)
-//
-//            let params : [String : String] = ["lat" : latitude, "lon" : longitude]
-//
-//        }
-//    }
     
-    func downLoadFromServer(){
-        
-        SVProgressHUD.show()
-        
-        print("DownLoad From Server")
-        
-        let userId = Auth.auth().currentUser!.uid
-        let DBRef = Database.database().reference().child("\(userId)/feed/")
-        let STRef = Database.database().reference().child("\(userId)/feed/")
-        let rootRef = Database.database().reference().child("\(userId)/feed")
-        
-        
-        rootRef.observe(.value) { (snapshot) in
-            if snapshot.hasChildren() == false{
-                SVProgressHUD.dismiss()
-            }
-            
-        }
-        
-        DBRef.observe(.childAdded){ (snapshot) in
-            print("Firebas DB observe!")
-            let data = snapshot.value as! Dictionary<String,AnyObject>
-           
-            var newLocation = FeedItem()
-            do{
-                newLocation.key = snapshot.key
-                let str = data["imageUrl"] as! String
-                
-                let imageUrl = URL(string: str)
-                
-                do{
-                    let imageData = try Data(contentsOf: imageUrl!)
-                    newLocation.image = UIImage(data: imageData)!
-                }catch {
-                    
-                
-                }
-//
-                newLocation.title = data["title"] as! String
-//                newLocation.date = data["data"] as! String
-//                newLocation.count = data["count"] as! String
-//                newLocation.firstMusicTitle = data["firstMusicTitle"] as! String
-                newLocation.city = data["city"] as! String
-                newLocation.latitude = data["latitude"] as! Double
-                newLocation.longitude = data["longitude"] as! Double
-                self.feeds.append(newLocation)
-                
-                self.getLatitude = newLocation.latitude
-                self.getLongitude = newLocation.longitude
-                self.getTitle = newLocation.title
-               
-                SVProgressHUD.dismiss()
-            }
-            catch{
-                SVProgressHUD.dismiss()
-            }
-        }
-    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-   
-
 }
 

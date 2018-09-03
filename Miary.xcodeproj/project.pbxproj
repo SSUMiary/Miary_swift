@@ -36,6 +36,8 @@
 		78C5B07821218C4700EFFC21 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B07721218C4700EFFC21 /* SettingsTableViewCell.swift */; };
 		78C5B0822122C31300EFFC21 /* MusicListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B0812122C31300EFFC21 /* MusicListTableViewCell.swift */; };
 		78D882E2213BF84F00B981BB /* PlayListInFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78C5B07E2122C1A200EFFC21 /* PlayListInFeedViewController.swift */; };
+		78D882E6213C04EA00B981BB /* FeedViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D882E5213C04EA00B981BB /* FeedViewPresenter.swift */; };
+		78D882E9213C050000B981BB /* FeedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D882E8213C050000B981BB /* FeedProtocol.swift */; };
 		78DC001C2120340100AFD5D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DC001B2120340100AFD5D3 /* AppDelegate.swift */; };
 		78DC00212120340100AFD5D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78DC001F2120340100AFD5D3 /* Main.storyboard */; };
 		78DC00232120340200AFD5D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78DC00222120340200AFD5D3 /* Assets.xcassets */; };
@@ -82,6 +84,8 @@
 		78C5B07721218C4700EFFC21 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 		78C5B07E2122C1A200EFFC21 /* PlayListInFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListInFeedViewController.swift; sourceTree = "<group>"; };
 		78C5B0812122C31300EFFC21 /* MusicListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicListTableViewCell.swift; sourceTree = "<group>"; };
+		78D882E5213C04EA00B981BB /* FeedViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewPresenter.swift; sourceTree = "<group>"; };
+		78D882E8213C050000B981BB /* FeedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedProtocol.swift; sourceTree = "<group>"; };
 		78DC00182120340100AFD5D3 /* Miary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Miary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78DC001B2120340100AFD5D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78DC00202120340100AFD5D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -229,6 +233,8 @@
 		78C5B07A2122C14700EFFC21 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				78D882E7213C04F000B981BB /* Protocol */,
+				78D882E4213C04CA00B981BB /* Presenter */,
 				787534422121739D00A8F411 /* FeedDetailViewController.swift */,
 				78DCC4F521204C2F00D20C0C /* FeedTableViewController.swift */,
 			);
@@ -267,6 +273,22 @@
 				78C5B0812122C31300EFFC21 /* MusicListTableViewCell.swift */,
 			);
 			path = newFeed;
+			sourceTree = "<group>";
+		};
+		78D882E4213C04CA00B981BB /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				78D882E5213C04EA00B981BB /* FeedViewPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		78D882E7213C04F000B981BB /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				78D882E8213C050000B981BB /* FeedProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		78DC000F2120340100AFD5D3 = {
@@ -554,6 +576,7 @@
 				78A9F4CB2132B30400352358 /* SearchResult.swift in Sources */,
 				78A9F4CD2132B30400352358 /* Relationships.swift in Sources */,
 				78A9F4CA2132B30400352358 /* Attributes.swift in Sources */,
+				78D882E6213C04EA00B981BB /* FeedViewPresenter.swift in Sources */,
 				78A9F4D52132BA6800352358 /* PlayListController.swift in Sources */,
 				78A9F4C72132B30400352358 /* Artwork.swift in Sources */,
 				78A9F4E12132C5E000352358 /* SearchMusicViewController.swift in Sources */,
@@ -572,6 +595,7 @@
 				78DCC50221209CE200D20C0C /* AddFeedTableViewController.swift in Sources */,
 				78DCC50C2120AD1C00D20C0C /* TabBarViewController.swift in Sources */,
 				78DC001C2120340100AFD5D3 /* AppDelegate.swift in Sources */,
+				78D882E9213C050000B981BB /* FeedProtocol.swift in Sources */,
 				58232DBD2136797E00F2A9F8 /* CitySelectViewController.swift in Sources */,
 				78DCC4F821204C7700D20C0C /* LoginViewController.swift in Sources */,
 				78A9F4E52133024D00352358 /* FeedManager.swift in Sources */,

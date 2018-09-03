@@ -15,7 +15,7 @@ import SwiftyJSON
 
 
 protocol onPlayListSelectedListener{
-    func onPlayListSelected(playListKey : String)
+    func onPlayListSelected(playList : PlayListItem)
 }
 
 class PlayListInFeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -38,24 +38,24 @@ class PlayListInFeedViewController: UIViewController, UITableViewDelegate, UITab
     }
     override func viewWillAppear(_ animated: Bool) {
         SVProgressHUD.show()
-        playListManager.getAllPlayLists { (list) in
-            DispatchQueue.main.async {
-                self.playLists = list
-                self.tableView.reloadData()
-                SVProgressHUD.dismiss()
-            }
+        PlayListManager.instance.getAllPlayLists { (list) in
+            self.playLists = list
+            self.tableView.reloadData()
+            SVProgressHUD.dismiss()
         }
     }
-    
     @IBAction func onNewButtonPreessed(){
-        let playListManager = PlayListManager()
+        
         let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
         alertController.addTextField { (textField) in
             textField.placeholder = "Play list name"
         }
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
             let firstTextField = alertController.textFields![0] as UITextField
-            PlayListManager.makeNewPlayList(playListName: firstTextField.text!)
+            SVProgressHUD.show()
+            PlayListManager.instance.makeNewPlayList(playListName: firstTextField.text!, completion: {() -> Void in
+                SVProgressHUD.dismiss()
+            })
             //add new playlist
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
@@ -87,9 +87,7 @@ class PlayListInFeedViewController: UIViewController, UITableViewDelegate, UITab
         let cell = tableView.dequeueReusableCell(withIdentifier: "musicList", for: indexPath) as! PlayListTableViewCell
         let item = playLists[indexPath.row]
         cell.backgroundImage.image = item.coverImage
-        cell.date.text = item.date
         cell.playListTitle.text = item.playListTitle
-        cell.firstMusicTitle.text = item.firstMusicTitle
         cell.playListCount.text = item.musicCount
         
         return cell

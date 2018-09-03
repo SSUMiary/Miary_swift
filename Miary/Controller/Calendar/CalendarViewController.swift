@@ -34,7 +34,6 @@ class CalendarViewController: UIViewController {
         super.viewDidLoad()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
-        
         let startDate = formatter.date(from: "01.01.2015")!
         let endDate = formatter.date(from: "01.01.2021")!
         
@@ -50,12 +49,7 @@ class CalendarViewController: UIViewController {
         calendarView.monthViewAppearanceDelegate = self
         calendarView.calendarDelegate = self
         calendarView.scrollDirection = .vertical
-//        calendarView.setSupplementaries([
-//            (Date().addingTimeInterval(-(60 * 60 * 70)), [VADaySupplementary.bottomDots([.red, .magenta])]),
-//            (Date().addingTimeInterval((60 * 60 * 110)), [VADaySupplementary.bottomDots([.red])]),
-//            (Date().addingTimeInterval((60 * 60 * 370)), [VADaySupplementary.bottomDots([.blue, .darkGray])]),
-//            (Date().addingTimeInterval((60 * 60 * 430)), [VADaySupplementary.bottomDots([.orange, .purple, .cyan])])
-//            ])
+
         view.addSubview(calendarView)
     }
     

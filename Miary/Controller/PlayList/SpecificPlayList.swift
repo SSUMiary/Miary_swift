@@ -28,11 +28,10 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
     @IBOutlet var playListTitle : UILabel!
     var playListKey : String?
     let apiClient = ApiClient()
-    let playListManager = PlayListManager()
     var playListTitleSource :String?
     var playListCount : String?
     
-    
+    var playListInfo : PlayListItem? = nil
     var songs : [SimpleSongModel] = []
     
     override func viewDidLoad() {
@@ -50,7 +49,6 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
         
     }
     
-    
     func prepare(){
         self.cloudServiceController.requestCapabilities { capabilities, error in
             if error != nil {
@@ -67,36 +65,13 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
     func getPlayListInformation(){
         //서버로 부터 playListTitle 에 대한 플레이 리스트 정보를 받아옴
         //그 정보를 albums에 저장하고, albums에 대한 정보로 tableview에 뿌려줌
-        
-        let userId = MiaryLoginManager.getUserInfo().uid
-        let key = playListKey as! String
-        
-        
-        
-        let DBRef = Database.database().reference().child("\(userId)/playLists/\(key)/")
-        DBRef.observe(.childAdded) { (snapshot) in
-            //print(#function)
-            
-            if snapshot.hasChildren() {
-                // print(snapshot)
-                //print(snapshot.key)
-                let data = snapshot.value as! Dictionary<String,String>
-                let songKey = snapshot.key
-                let song = SimpleSongModel()
-                song.artist = data["artist"]
-                song.songName = data["songName"]
-                song.imageURL = data["imageURL"]
-                song.songID = data["songID"]
-                song.songKey = songKey
-                self.songs.append(song)
+        DispatchQueue.main.async {
+            PlayListManager.instance.getSpecificPlayList(playListKey: self.playListKey!, completion: { (item) in
+                self.playListInfo = item
+                self.playListTitle.text = self.playListInfo?.playListTitle
+                self.songs = item.songs
                 self.tableView.reloadData()
-                
-                
-            }else{
-                if snapshot.key == "title" {
-                    self.playListTitle.text = snapshot.value as! String
-                }
-            }
+            })
         }
     }
     
@@ -120,7 +95,7 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
             }
             let newPlayListName = firstTextField.text
             self.playListTitle.text = newPlayListName
-            self.playListManager.updatePlayListName(newName: newPlayListName!, playListKey: self.playListKey!)
+            PlayListManager.instance.updatePlayListName(newName: newPlayListName!, playListKey: self.playListKey!)
             //add new playlist
         })
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
@@ -148,7 +123,7 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
         let deleteAction = UIContextualAction(style: .destructive, title: "delete") { (action, sourceView, completionHandler) in
             SVProgressHUD.show()
             let songItem = self.songs[indexPath.row]
-            self.playListManager.deleteMusicFromPlaylist(playListKey: self.playListKey!, songKey: songItem.songKey!)
+            PlayListManager.instance.deleteMusicFromPlaylist(playListKey: self.playListKey!, songKey: songItem.songKey!)
 
             self.songs.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)

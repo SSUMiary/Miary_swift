@@ -12,10 +12,9 @@ class PlayListItem{
     var key : String!
     var playListTitle : String!
     var coverImage : UIImage!
-    var firstMusicTitle : String!
-    var date : String!
     var musicCount : String!
     var user : String!
+    var songs : [SimpleSongModel]!
     //var albums : [Resources]
     //resource 들어가야함
 }
