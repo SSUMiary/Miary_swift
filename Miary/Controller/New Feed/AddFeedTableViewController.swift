@@ -36,7 +36,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
             let datePicker = UIDatePicker()
             datePicker.date = Date()
             datePicker.datePickerMode = .date
-            datePicker.addTarget(self, action: #selector(onDateChanged(sender:)), for: .valueChanged)
+            datePicker.addTarget(self, action: #selector(onDateChanged), for: .valueChanged)
             
             return datePicker
         }
@@ -47,7 +47,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
             let accessoryToolbar = UIToolbar()
             accessoryToolbar.sizeToFit()
             
-            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDoneButtonTapped(sender:)))
+            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(onDoneButtonTapped))
             
             let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
             
@@ -95,7 +95,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     @objc func tableviewTappedOutFocus(){
         print(#function)
         
-        dateTextField.endEditing(true)
+        //dateTextField.endEditing(true)
         playListTextField.endEditing(true)
         cityName.endEditing(true)
     }
