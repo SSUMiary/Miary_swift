@@ -12,11 +12,7 @@ class PlayListTableViewCell: UITableViewCell {
 
     @IBOutlet var backgroundImage : UIImageView!
     @IBOutlet var playListTitle : UILabel!
-    @IBOutlet var date : UILabel!
-    @IBOutlet var firstMusicTitle : UILabel!
     @IBOutlet var playListCount : UILabel!
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

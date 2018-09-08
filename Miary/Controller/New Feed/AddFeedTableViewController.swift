@@ -12,9 +12,7 @@ import FirebaseStorage
 import SVProgressHUD
 import FirebaseAuth
 
-class AddFeedTableViewController: UITableViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, SelectCityDelegate,onPlayListSelectedListener {
-  
-    
+class AddFeedTableViewController: UITableViewController , UIImagePickerControllerDelegate, UINavigationControllerDelegate, SelectCityDelegate,onPlayListSelectedListener, diaryContentListner {
     
     @IBOutlet weak var playListAlbumCover :UIImageView!
     @IBOutlet weak var playListTitle : UILabel!
@@ -23,9 +21,18 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var DateFieldText: UITextField!
-    @IBOutlet weak var diaryTitle: UITextField!
+    @IBOutlet weak var diaryTitle: UILabel!
+    @IBOutlet weak var diaryCaption : UILabel!
     @IBOutlet weak var cityName: UITextField!
-  
+    
+    var diaryTitleStr : String!
+    var diaryCaptionStr : String!
+    
+    let titleTouchedGuesture = UITapGestureRecognizer()
+    let captionTouchedGuesture = UITapGestureRecognizer()
+    
+    
+    
     var datePicker: UIDatePicker{
         get{
             let datePicker = UIDatePicker()
@@ -47,7 +54,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
             let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
             
             accessoryToolbar.items = [flexibleSpace,doneButton]
-
+            
             return accessoryToolbar
         }
     }
@@ -58,19 +65,49 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     
     @IBOutlet var labels: [UILabel]!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         setupUI()
+        
     }
-    
     func onPlayListSelected(playList_ : PlayListItem) {
         self.playList = playList_
+        print(#function)
+        print(self.playList.key)
+        playListAlbumCover.image = playList_.coverImage
+        playListTitle.text = playList_.playListTitle
     }
-    
+    @objc func onDiaryTitleTextViewTouched(_ sender : UITapGestureRecognizer){
+        print(#function)
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let navVC = storyBoard.instantiateViewController(withIdentifier: "editDiary") as! UINavigationController
+        let nextVC = navVC.topViewController as! DiaryContentTableViewController
+        nextVC.delegate = self
+        nextVC.diaryCaptionStr = diaryCaption.text!
+        nextVC.diaryTitleStr = diaryTitle.text!
+        
+        self.navigationController?.show(nextVC, sender: self)
+    }
+    @objc func onDiaryCaptionTextViewTouched(_ sender : UITapGestureRecognizer){
+        print(#function)
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let navVC = storyBoard.instantiateViewController(withIdentifier: "editDiary") as! UINavigationController
+        let nextVC = navVC.topViewController as! DiaryContentTableViewController
+        nextVC.delegate = self
+        self.navigationController?.show(nextVC, sender: self)
+        nextVC.diaryCaptionStr = diaryCaptionStr
+        nextVC.diaryTitleStr = diaryTitleStr
+    }
     func setupUI(){
+        diaryTitle.isUserInteractionEnabled = true
+        diaryCaption.isUserInteractionEnabled = true
+        titleTouchedGuesture.addTarget(self, action: #selector(onDiaryTitleTextViewTouched))
+        captionTouchedGuesture.addTarget(self, action: #selector(onDiaryCaptionTextViewTouched))
+        diaryTitle.addGestureRecognizer(titleTouchedGuesture)
+        diaryCaption.addGestureRecognizer(captionTouchedGuesture)
+        
         DateFieldText.inputView = datePicker
         DateFieldText.inputAccessoryView = accessoryToolbar
         DateFieldText.text = Date().mediumDateString
@@ -87,27 +124,17 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         }
     }
     
-    func onPlayListSelected(playListKey: String) {
-        
-    }
-    
-    @objc func tableviewTappedOutFocus(){
-        print(#function)
-        
-        //dateTextField.endEditing(true)
-        diaryTitle.endEditing(true)
-        cityName.endEditing(true)
-    }
-    
     @IBAction func SaveButtonPressed(_ sender: UIBarButtonItem) {
         let newFeed = FeedItem()
-    
+        
         newFeed.image = imageView.image!
         newFeed.title = diaryTitle.text!
         newFeed.date = DateFieldText.text!
         newFeed.latitude = "\(cityLatitude)"
         newFeed.longitude = "\(cityLongitude)"
-        newFeed.playListKey = playList.key
+        print(#function)
+        print(playList.key!)
+        newFeed.playListKey = playList.key!
         newFeed.city = cityName.text!
         
         SVProgressHUD.show()
@@ -124,9 +151,6 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         
         dismiss(animated: true, completion: nil)
     }
-    
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -145,8 +169,6 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
             }
             alertController.addAction(photoLibraryAction)
             present(alertController, animated: true, completion: nil)
-            
-            
         }
     }
     
@@ -156,8 +178,6 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
             imageView.image = image
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
-            
-            
         }
         
         let leadingConstraint = NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: imageView.superview, attribute: .leading, multiplier: 1, constant: 0)
@@ -177,73 +197,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         
         self.dismiss(animated: true, completion: nil)
     }
-    // MARK: - Table view data source
     
-    //    override func numberOfSections(in tableView: UITableView) -> Int {
-    //        // #warning Incomplete implementation, return the number of sections
-    //        return 5
-    //    }
-    //
-    //    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    //        // #warning Incomplete implementation, return the number of rows
-    //        return 5
-    //    }
-    
-    
-    
-    //    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    //        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-    //
-    //
-    //
-    //        return cell
-    //    }
-    //
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     @IBAction func citySearch(_ sender: UIButton) {
         
         if cityName != nil{
@@ -257,6 +211,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue,sender: Any?){
         if segue.identifier == "CitySelect"{
             let denstinationVC = segue.destination as! UINavigationController
@@ -266,9 +221,16 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         if segue.identifier == "selectPlayList" {
             let nextVC = segue.destination as! PlayListInFeedViewController
             nextVC.delegate = self
-            
         }
+        
     }
+    func onSaveDiaryContent(title: String, caption: String) {
+        
+        print(#function)
+        diaryTitle.text = title
+        diaryCaption.text = caption
+    }
+    
     func userEnteredCityName(city: String, latitude: Double, longitude: Double){
         print(#function)
         cityLongitude = longitude

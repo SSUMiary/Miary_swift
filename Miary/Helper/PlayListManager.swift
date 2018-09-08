@@ -22,7 +22,7 @@ class PlayListManager{
     var playLists : [PlayListItem] = []
     static let instance : PlayListManager = PlayListManager()
     let apiClient = ApiClient()
-    func makeNewPlayList(playListName : String, completion : @escaping ()->Void){
+    func makeNewPlayList(playListName : String, completion : @escaping (String)->Void){
         
         let userId = MiaryLoginManager.getUserInfo().uid
         
@@ -32,7 +32,7 @@ class PlayListManager{
         
         DBRef = DBRef.child(key)
         STRef = STRef.child(key)
-        let logoImage = UIImage(named:"AppIcon29x29")
+        let logoImage = UIImage(named:"pl_img2")
         let data = UIImagePNGRepresentation(logoImage!)
         STRef.putData(data!).observe(.success) { (snapshot) in
             if let error = snapshot.error {
@@ -48,10 +48,10 @@ class PlayListManager{
                              "imageUrl" : url?.absoluteString as AnyObject,
                              "title" : playListName as AnyObject,
                              "date":   " " as AnyObject,
-                             "count" : " " as AnyObject,
-                             "firstMusicTitle" : " " as AnyObject]
+                             "count": "0" as AnyObject
+                        ]
                         DBRef.setValue(dataDic)
-                        completion()
+                        completion(key)
                     }
                 })
             }
@@ -77,7 +77,8 @@ class PlayListManager{
     }
     
     func getSpecificPlayList(playListKey : String, completion : @escaping (PlayListItem) -> Void) {
-        
+        print(#function)
+        print(playListKey)
         let mainCompletion : (PlayListItem) -> Void = {(item) -> Void in
             DispatchQueue.main.async {
                 completion(item)
@@ -106,12 +107,12 @@ class PlayListManager{
                 else if k == "firstMusicTitle"{}
                 else{
                     let newSong = SimpleSongModel()
-                    let item = data[k] as! Dictionary<String,String>
+                    let item = data[k] as! Dictionary<String,AnyObject>
                     newSong.songKey = k
-                    newSong.artist = item["artist"]
-                    newSong.songName = item["songName"]
-                    newSong.imageURL = item["imageURL"]
-                    newSong.songID = item["songID"]
+                    newSong.artist = item["artist"] as! String
+                    newSong.songName = item["songName"] as! String
+                    newSong.imageURL = item["imageURL"] as! String
+                    newSong.songID = item["songID"] as! String
                     playListItem.songs.append(newSong)
                     
                 }
@@ -184,18 +185,20 @@ class PlayListManager{
         
     }
     
-    func deleteMusicFromPlaylist(playListKey : String, songKey: String){
+    func deleteMusicFromPlaylist(playListKey : String, songKey: String, completion : @escaping ()->Void){
         
         
         let userId = MiaryLoginManager.getUserInfo().uid
-        var DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)/\(songKey)")
-        
-        DBRef.removeValue()
+        var songDBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)/\(songKey)")
+        var playListDBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)")
+     
+        songDBRef.removeValue()
+        completion()
         
     }
     
     
-    func addMusicToPlayList(albumID : String, album : Resource, playListKey : String, index : Int){
+    func addMusicToPlayList(albumID : String, album : Resource, playListKey : String, index : Int, completion : @escaping ()->Void){
         
         let userId = MiaryLoginManager.getUserInfo().uid
         
@@ -207,21 +210,18 @@ class PlayListManager{
         let url = artWork?.imageURL(width: 80, height: 80)!
         
         var DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)")
+       
         let autokey = DBRef.childByAutoId().key
-        
-        
         let dic : Dictionary<String,String> = ["songName" : songName!,
                                                "artist" : artist!,
                                                "songID": songID!,
                                                "imageURL" : (url?.absoluteString)!,
-                                               "songKey" : autokey
-        ]
-        
+                                               "songKey" : autokey]
         DBRef = DBRef.child(autokey)
-        
         let g = DispatchQueue(label: "add")
         let q1 = DispatchWorkItem() {
             DBRef.setValue(dic)
+            completion()
         }
         g.async(execute: q1)
     }

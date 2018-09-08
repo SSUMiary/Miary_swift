@@ -28,13 +28,11 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.addSubview(refreshControl)
-        getAllPlayList()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        
+        getAllPlayList()
     }
     
     lazy var refreshControl : UIRefreshControl = {
@@ -90,7 +88,7 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
             let firstTextField = alertController.textFields![0] as UITextField
             SVProgressHUD.show()
-            PlayListManager.instance.makeNewPlayList(playListName: firstTextField.text!, completion: {()-> Void  in
+            PlayListManager.instance.makeNewPlayList(playListName: firstTextField.text!, completion: {(playlistKey)-> Void  in
                 SVProgressHUD.dismiss()
             })
             //add new playlist
@@ -120,11 +118,10 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let cell = tableView.dequeueReusableCell(withIdentifier: "musicList", for: indexPath) as! PlayListTableViewCell
         let item = playLists[indexPath.row]
         cell.backgroundImage.image = item.coverImage
-        
-        cell.playListTitle.text = item.playListTitle
-        
         cell.playListCount.text = item.musicCount
-        
+        cell.playListTitle.text = item.playListTitle
+        print(#function)
+        print(item.musicCount)
         return cell
     }
     

@@ -27,6 +27,17 @@ class FeedManager{
     func getFeeds()->[FeedItem] {
         return feedList
     }
+    func updateFeed(feedInfo : FeedItem, completion : @escaping ()->Void){
+        let userId = MiaryLoginManager.getUserInfo().uid
+        let DBRef = Database.database().reference().child("\(userId)/feed/\(feedInfo.key)")
+        DBRef.updateChildValues(["title" : feedInfo.title])
+        print(#function + "end")
+        completion()
+    }
+    
+    func getSpecificFeedFromManager(index : Int) -> FeedItem{
+        return feedList[index]
+    }
     func makeNewFeed(feedInfo : FeedItem, completion : @escaping ()->Void){
         var latitude : Double
         var longitude : Double
@@ -36,7 +47,8 @@ class FeedManager{
         let key = DBRef.childByAutoId().key
         STRef = STRef.child(key)
         DBRef = DBRef.child(key)
-        
+        print(#function)
+        print(feedInfo.playListKey)
         if feedInfo.image != nil {
             let data = UIImageJPEGRepresentation(feedInfo.image, 0.01)
             STRef.putData(data!).observe(.success) { (snapshot) in
@@ -56,7 +68,8 @@ class FeedManager{
                                  "count" : feedInfo.count as AnyObject,
                                  "cityName": feedInfo.city as AnyObject,
                                  "latitude" : feedInfo.latitude as AnyObject,
-                                 "longitude" : feedInfo.longitude as AnyObject]
+                                 "longitude" : feedInfo.longitude as AnyObject,
+                                 "playListKey" : feedInfo.playListKey as AnyObject]
                             DBRef.setValue(dataDic)
                             
                         }
@@ -81,6 +94,7 @@ class FeedManager{
         DBRef.removeValue()
         completion()
     }
+    
     
     func getAllFeedFromServer(completion : @escaping ([FeedItem])->Void){
         
@@ -129,6 +143,7 @@ class FeedManager{
                 newItem.city = item["cityName"] as! String
                 newItem.longitude = item["longitude"] as! String
                 newItem.latitude = item["latitude"] as! String
+                newItem.playListKey = item["playListKey"] as! String
                 
                 self.feedList.append(newItem)
             }

@@ -103,15 +103,10 @@ class citySelectViewController: UIViewController, UISearchBarDelegate{
         
         
         delegate?.userEnteredCityName(city: pinText!, latitude: pinLatitude!, longitude: pinLongitude!)
-        self.dismiss(animated: true
-            , completion: nil)
-        
-        
+        self.dismiss(animated: true, completion: nil)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
     }
     
     override func didReceiveMemoryWarning() {

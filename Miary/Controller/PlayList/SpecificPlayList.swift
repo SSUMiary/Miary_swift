@@ -123,7 +123,9 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
         let deleteAction = UIContextualAction(style: .destructive, title: "delete") { (action, sourceView, completionHandler) in
             SVProgressHUD.show()
             let songItem = self.songs[indexPath.row]
-            PlayListManager.instance.deleteMusicFromPlaylist(playListKey: self.playListKey!, songKey: songItem.songKey!)
+            PlayListManager.instance.deleteMusicFromPlaylist(playListKey: self.playListKey!, songKey: songItem.songKey!){
+                
+            }
 
             self.songs.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)

@@ -76,7 +76,9 @@ extension AlbumViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        playListManager.addMusicToPlayList(albumID: albumID, album: album!, playListKey: playListKey, index: indexPath.row)
+        playListManager.addMusicToPlayList(albumID: albumID, album: album!, playListKey: playListKey, index: indexPath.row){
+            
+        }
         self.dismiss(animated: true, completion: nil)
         
     }

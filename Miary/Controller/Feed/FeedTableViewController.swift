@@ -139,9 +139,9 @@ class FeedTableViewController: UITableViewController,FeedProtocol, UIGestureReco
         let cell = tableView.dequeueReusableCell(withIdentifier: "feedItem", for: indexPath) as! FeedTableViewCell
         cell.feedImage.image = feeds[indexPath.row].image
         cell.feedTitle.text = feeds[indexPath.row].title
-        
+        cell.location.text = feeds[indexPath.row].city
         cell.feedDate.text = feeds[indexPath.row].date
-        cell.musicCount.text = feeds[indexPath.row].count
+        
         
         // Configure the cell...
         
@@ -150,17 +150,17 @@ class FeedTableViewController: UITableViewController,FeedProtocol, UIGestureReco
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "feedDetail"){
-            let nextVC = segue.destination as! FeedDetailViewController
+            let navVC = segue.destination as! UINavigationController
+            let nextVC = navVC.topViewController as! FeedDetailViewController!
             let key = feeds[tableView.indexPathForSelectedRow!.row].key
-            nextVC.key = key
+            guard let index = tableView.indexPathForSelectedRow?.row else {return}
+            nextVC?.feedIndex = index
+            nextVC?.key = key
+            
             
         }
     }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        performSegue(withIdentifier: "feedDetail", sender: nil)
-        
-    }
+    
     
     
 }

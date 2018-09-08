@@ -13,8 +13,8 @@ class FeedTableViewCell: UITableViewCell {
     @IBOutlet var feedImage : UIImageView!
     @IBOutlet var feedTitle : UILabel!
     @IBOutlet var feedDate : UILabel!
-    @IBOutlet var firstMusicTitle : UILabel!
-    @IBOutlet var musicCount : UILabel!
+    @IBOutlet var location : UILabel!
+    
     
     
     override func awakeFromNib() {
