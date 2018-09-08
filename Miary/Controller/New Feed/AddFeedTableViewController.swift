@@ -136,7 +136,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         print(playList.key!)
         newFeed.playListKey = playList.key!
         newFeed.city = cityName.text!
-        
+        newFeed.caption = diaryCaption.text!
         SVProgressHUD.show()
         FeedManager.instance.makeNewFeed(feedInfo: newFeed) {
             FeedManager.instance.getAllFeedFromServer(completion: { (list) in

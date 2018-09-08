@@ -46,6 +46,7 @@ class FeedDetailViewController: UITableViewController {
         }
         barButtonStatus = true
         feedTitle.text = feedItem.title
+        feedCaption.text = feedItem.caption
         print(feedItem.title)
         feedImage.image = feedItem.image
         feedCaption.isEditable = false

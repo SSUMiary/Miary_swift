@@ -69,7 +69,8 @@ class FeedManager{
                                  "cityName": feedInfo.city as AnyObject,
                                  "latitude" : feedInfo.latitude as AnyObject,
                                  "longitude" : feedInfo.longitude as AnyObject,
-                                 "playListKey" : feedInfo.playListKey as AnyObject]
+                                 "playListKey" : feedInfo.playListKey as AnyObject,
+                                 "caption" : feedInfo.caption as AnyObject]
                             DBRef.setValue(dataDic)
                             
                         }
@@ -144,7 +145,7 @@ class FeedManager{
                 newItem.longitude = item["longitude"] as! String
                 newItem.latitude = item["latitude"] as! String
                 newItem.playListKey = item["playListKey"] as! String
-                
+                newItem.caption = item["caption"] as! String
                 self.feedList.append(newItem)
             }
             mainCompletion(self.feedList)

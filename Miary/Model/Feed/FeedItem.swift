@@ -18,7 +18,8 @@ class FeedItem {
     var latitude : String
     var longitude : String
     var playListKey : String
-    init(key_ : String,image_ : UIImage, title_ : String, date_ : String, count_:String, city_: String, latitude_: String , longitude_: String, playListKey_ : String ) {
+    var caption : String
+    init(key_ : String,image_ : UIImage, title_ : String, date_ : String, count_:String, city_: String, latitude_: String , longitude_: String, playListKey_ : String, caption_ : String ) {
         self.key = key_
         self.image = image_
         self.title = title_
@@ -28,10 +29,11 @@ class FeedItem {
         self.latitude = latitude_
         self.longitude = longitude_
         self.playListKey = playListKey_
+        self.caption = caption_
     }
     
     convenience init(){
-        self.init(key_: "", image_: UIImage(), title_: "", date_: "", count_: "", city_: "" , latitude_: "", longitude_: "", playListKey_ : "")
+        self.init(key_: "", image_: UIImage(), title_: "", date_: "", count_: "", city_: "" , latitude_: "", longitude_: "", playListKey_ : "", caption_ : "")
     }
     
 }
