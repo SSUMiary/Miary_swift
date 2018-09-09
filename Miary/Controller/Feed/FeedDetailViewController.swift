@@ -23,39 +23,61 @@ class FeedDetailViewController: UITableViewController {
     @IBOutlet var location : UILabel!
     @IBOutlet var playListButton : UIButton!
     
-    let swipeUp = UISwipeGestureRecognizer()
-    let swipeDown = UISwipeGestureRecognizer()
+    let touchGeusture = UITapGestureRecognizer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
    
-        getFeedInfo()
+        prepare()
+        
+        location.isUserInteractionEnabled = true
+        touchGeusture.addTarget(self, action: #selector(onLocationButtonClicked))
+        location.addGestureRecognizer(touchGeusture)
         
         
-        
-        // Do any additional setup after loading the view.
+    
     }
-    override func viewDidAppear(_ animated: Bool) {
+    @objc func onLocationButtonClicked(_ sender : UITapGestureRecognizer){
+        
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let navVC = storyBoard.instantiateViewController(withIdentifier: "mapViewInFeed") as! UINavigationController
+        let nextVC = navVC.topViewController as! MapViewInFeedViewController
+        nextVC.feedItem  = self.feedItem
+        self.navigationController?.show(nextVC, sender: self)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        print(#function)
         prepare()
     }
     
     func prepare(){
-        self.title = feedItem.date
-        if feedItem.city != "" {
-            location.text = feedItem.city
+        
+        SVProgressHUD.show()
+        DispatchQueue.main.async {
+            FeedManager.instance.getSpecificFeedFromServer(feedKey: self.key, completion: { (item) in
+                self.feedItem = item
+                self.title = self.feedItem.date
+                if self.feedItem.city != "" {
+                    self.location.text = self.feedItem.city
+                }
+                self.barButtonStatus = true
+                self.feedTitle.text = self.feedItem.title
+                self.feedCaption.text = self.feedItem.caption
+                
+                self.feedImage.image = self.feedItem.image
+                self.feedCaption.isEditable = false
+                self.feedTitle.isEditable = false
+                SVProgressHUD.dismiss()
+            })
         }
-        barButtonStatus = true
-        feedTitle.text = feedItem.title
-        feedCaption.text = feedItem.caption
-        print(feedItem.title)
-        feedImage.image = feedItem.image
-        feedCaption.isEditable = false
-        feedTitle.isEditable = false
+        
         
     }
     func getFeedInfo(){
-        feedItem = FeedManager.instance.getSpecificFeedFromManager(index: feedIndex)
         print(#function)
+        print(feedIndex)
+        feedItem = FeedManager.instance.getSpecificFeedFromManager(index: feedIndex)
+        
         print(feedItem.playListKey)
     }
     
@@ -67,12 +89,14 @@ class FeedDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
-    
-    @IBAction func onCancelPressed(){
-        self.dismiss(animated: true, completion: nil)
-    }
+//    
+//    @IBAction func onCancelPressed(){
+//        print(#function)
+//        self.dismiss(animated: true, completion: nil)
+//    }
     func updateFeed(){
         feedItem.title = feedTitle.text
+        feedItem.caption = feedCaption.text
         SVProgressHUD.show()
         DispatchQueue.main.async {
             FeedManager.instance.updateFeed(feedInfo: self.feedItem) {
@@ -100,22 +124,47 @@ class FeedDetailViewController: UITableViewController {
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showPlayListInFeed" {
-            let navVC = segue.destination as! UINavigationController
+    @IBAction func onPlayListButtonClicked(){
+        if feedItem.playListKey == ""{
+            let alertController = UIAlertController(title: "Add new play list", message: "", preferredStyle: .alert)
+            alertController.addTextField { (textField) in
+                textField.placeholder = "Play list name"
+            }
+            let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+                let firstTextField = alertController.textFields![0] as UITextField
+                SVProgressHUD.show()
+                PlayListManager.instance.makeNewPlayList(playListName: firstTextField.text!, completion: {(playlistKey)-> Void  in
+                    self.feedItem.playListKey = playlistKey
+                    let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                    let navVC = storyBoard.instantiateViewController(withIdentifier: "specificPlayList") as! UINavigationController
+                    let nextVC = navVC.topViewController as! SpecificPlayList
+                    nextVC.playListKey = playlistKey
+                    
+                    let date = Date()
+                    
+                    self.updateFeed()
+                    self.navigationController?.show(nextVC, sender: self)
+                    SVProgressHUD.dismiss()
+                })
+                //add new playlist
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: {
+                (action : UIAlertAction!) -> Void in })
+            
+            alertController.addAction(saveAction)
+            alertController.addAction(cancelAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+        }else {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let navVC = storyBoard.instantiateViewController(withIdentifier: "specificPlayList") as! UINavigationController
             let nextVC = navVC.topViewController as! SpecificPlayList
+            
             nextVC.playListKey = feedItem.playListKey
-            print(feedItem.playListKey)
+            self.navigationController?.show(nextVC, sender: self)
+            
         }
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

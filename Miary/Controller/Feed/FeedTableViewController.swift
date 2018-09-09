@@ -23,7 +23,7 @@ class FeedTableViewController: UITableViewController,FeedProtocol, UIGestureReco
         
         
         //downloadFromServer()
-        //prepareSKCloud()
+        prepareSKCloud()
         
         getAllFeed()
         presenter.delegate = self
@@ -42,10 +42,14 @@ class FeedTableViewController: UITableViewController,FeedProtocol, UIGestureReco
             return
         }
         let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        
+        
         let deleteFeedAction = UIAlertAction(title: "Delete", style: .default) { (action) in
+            SVProgressHUD.show()
             FeedManager.instance.deleteFeed(feedKey: self.feeds[indexPath.row].key, completion: {
                 self.feeds.remove(at: indexPath.row)
                 self.tableView.reloadData()
+                SVProgressHUD.dismiss()
             })
         }
         
@@ -141,26 +145,21 @@ class FeedTableViewController: UITableViewController,FeedProtocol, UIGestureReco
         cell.feedTitle.text = feeds[indexPath.row].title
         cell.location.text = feeds[indexPath.row].city
         cell.feedDate.text = feeds[indexPath.row].date
-        
-        
-        // Configure the cell...
-        
         return cell
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "feedDetail"){
-            let navVC = segue.destination as! UINavigationController
-            let nextVC = navVC.topViewController as! FeedDetailViewController!
-            let key = feeds[tableView.indexPathForSelectedRow!.row].key
-            guard let index = tableView.indexPathForSelectedRow?.row else {return}
-            nextVC?.feedIndex = index
-            nextVC?.key = key
-            
-            
-        }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let navVC = storyBoard.instantiateViewController(withIdentifier: "feedDetailView") as! UINavigationController
+        let nextVC = navVC.topViewController as! FeedDetailViewController
+        
+        nextVC.key = feeds[indexPath.row].key
+        nextVC.feedIndex = indexPath.row
+        print(#function)
+        print(nextVC.feedIndex)
+        print(nextVC.key)
+        
+        self.navigationController?.show(nextVC, sender: self)
+        
     }
-    
-    
     
 }

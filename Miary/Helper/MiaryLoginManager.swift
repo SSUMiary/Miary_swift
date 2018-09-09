@@ -12,10 +12,22 @@ import FirebaseAuth
 import FirebaseCore
 import FacebookCore
 import FBSDKCoreKit
+import FirebaseDatabase
+import FirebaseStorage
+
+import FirebaseAuth
+import SwiftyJSON
 
 class MiaryLoginManager{
     
-    static func loginFacebook(_ viewContorller : UIViewController){
+    static let instance = MiaryLoginManager()
+    private init(){}
+    var userProfileImage : UIImage!
+    var userName : String!
+    let apiClient = ApiClient()
+    var captionArr : [String] = []
+    
+    func loginFacebook(_ viewContorller : UIViewController){
         let loginManager = LoginManager()
         
         loginManager.logIn(readPermissions: [.publicProfile], viewController: viewContorller)
@@ -61,6 +73,14 @@ class MiaryLoginManager{
                         print("My name is \(response.dictonaryValue["name"])")
                         print("ProfilePic : \(response.dictonaryValue["profile_pic"])")
                         
+                        let picUrl : URL = URL(string: response.dictonaryValue["profile_pic"] as! String)!
+                        
+                        self.userName = response.dictonaryValue["name"] as! String
+                        self.apiClient.image(url: picUrl, completion: { (image) in
+                            self.userProfileImage = image
+                        }
+                        )
+                        
                     case .failed(let error):
                         print("Custom Graph Request Failed: \(error)")
                     }
@@ -71,13 +91,30 @@ class MiaryLoginManager{
         }
     }
     
-    static func getUserInfo() -> User{
+    func getUserInfo() -> User{
         
         return Auth.auth().currentUser!
         
     }
     
-    static func loginFireBase(_ viewController : UIViewController){
+    func getUserName() -> String {
+        
+        return (Auth.auth().currentUser?.displayName)!
+        
+    }
+    func getUserProfile(completion : @escaping (UIImage) -> Void) {
+        
+        let mainCompletion : (UIImage)-> Void = {(image)->Void in
+            
+            completion(image)
+        }
+        apiClient.image(url: (Auth.auth().currentUser?.photoURL)!) { (image) in
+            mainCompletion(image!)
+        }
+        
+    }
+    
+    func loginFireBase(_ viewController : UIViewController){
         let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         let VC = viewController as! LoginViewController
         Auth.auth().signInAndRetrieveData(with: credential) { (result, error) in
@@ -94,4 +131,15 @@ class MiaryLoginManager{
             }
         }
     }
+    
+    
+    func getCaptionFromServer(){
+        
+        let DBRef = Database.database().reference().child("caption")
+        DBRef.observe(.value) { (snapshot) in
+            
+        }
+    }
+    
 }
+

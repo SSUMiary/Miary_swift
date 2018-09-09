@@ -24,7 +24,7 @@ class PlayListManager{
     let apiClient = ApiClient()
     func makeNewPlayList(playListName : String, completion : @escaping (String)->Void){
         
-        let userId = MiaryLoginManager.getUserInfo().uid
+        let userId = MiaryLoginManager.instance.getUserInfo().uid
         
         var DBRef = Database.database().reference().child("\(userId)/playLists/")
         var STRef = Storage.storage().reference().child("\(userId)/playLists/")
@@ -60,7 +60,7 @@ class PlayListManager{
     
     func updatePlayListName(newName : String, playListKey : String){
         // 플레이리스트 이름 변경
-        let userId = MiaryLoginManager.getUserInfo().uid
+        let userId = MiaryLoginManager.instance.getUserInfo().uid
         let DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)")
         DBRef.updateChildValues(["title" : newName])
         
@@ -85,16 +85,20 @@ class PlayListManager{
             }
         }
         
-        let userId = MiaryLoginManager.getUserInfo().uid
+        let userId = MiaryLoginManager.instance.getUserInfo().uid
         let DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)/")
         DBRef.observe(.value) { (snapshot) in
             //print(#function)
+            if !snapshot.hasChildren() {
+                return
+            }
             let data = snapshot.value as! NSDictionary
             let keys = data.allKeys as! [String]
             let playListItem = PlayListItem()
             playListItem.songs = []
             playListItem.key = snapshot.key
             playListItem.user = userId
+            
             
             for k in keys{
                 if k == "title" {
@@ -132,7 +136,7 @@ class PlayListManager{
         }
         
         
-        let userId = MiaryLoginManager.getUserInfo().uid
+        let userId = MiaryLoginManager.instance.getUserInfo().uid
         var DBRef = Database.database().reference().child("\(userId)/playLists")
         var STRef = Storage.storage().reference().child("\(userId)/playLists")
         
@@ -172,7 +176,7 @@ class PlayListManager{
     
     func deleteMusicList(playListKey : String, completion : @escaping ()->Void) {
         
-        let userId = MiaryLoginManager.getUserInfo().uid
+        let userId = MiaryLoginManager.instance.getUserInfo().uid
         var DBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)/")
         var STRef = Storage.storage().reference().child("\(userId)/playLists/\(playListKey)/")
         STRef.delete { (error) in
@@ -181,6 +185,19 @@ class PlayListManager{
             
         }
         DBRef.removeValue()
+        
+        
+        let feeds = FeedManager.instance.getFeeds()
+        for i in 0..<feeds.count {
+            let item = feeds[i]
+            if item.playListKey == playListKey {
+                item.playListKey = ""
+                FeedManager.instance.updateFeed(feedInfo: item) {
+                    
+                }
+                break
+            }
+        }
         completion()
         
     }
@@ -188,10 +205,11 @@ class PlayListManager{
     func deleteMusicFromPlaylist(playListKey : String, songKey: String, completion : @escaping ()->Void){
         
         
-        let userId = MiaryLoginManager.getUserInfo().uid
+        let userId = MiaryLoginManager.instance.getUserInfo().uid
         var songDBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)/\(songKey)")
         var playListDBRef = Database.database().reference().child("\(userId)/playLists/\(playListKey)")
-     
+        
+        
         songDBRef.removeValue()
         completion()
         
@@ -200,7 +218,7 @@ class PlayListManager{
     
     func addMusicToPlayList(albumID : String, album : Resource, playListKey : String, index : Int, completion : @escaping ()->Void){
         
-        let userId = MiaryLoginManager.getUserInfo().uid
+        let userId = MiaryLoginManager.instance.getUserInfo().uid
         
         let artWork = album.attributes?.artwork
         let track = album.relationships?.tracks![index]

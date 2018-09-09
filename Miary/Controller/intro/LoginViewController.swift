@@ -17,7 +17,8 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func LoginButtonFacebook(_ sender: UIButton) {
-        MiaryLoginManager.loginFacebook(self)
+        MiaryLoginManager.instance.loginFacebook(self)
+        //MiaryLoginManager.loginFacebook(self)
         
     }
     override func viewDidLoad() {

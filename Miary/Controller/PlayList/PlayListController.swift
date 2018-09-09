@@ -79,8 +79,6 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
     
     @IBAction func onButtonPressed(_ sender: Any){
         
-        
-        
         let alertController = UIAlertController(title: "Add new play list", message: "", preferredStyle: .alert)
         alertController.addTextField { (textField) in
             textField.placeholder = "Play list name"
@@ -106,8 +104,6 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         super.didReceiveMemoryWarning()
         
     }
-    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playLists.count
@@ -144,19 +140,27 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let swipeActionConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
         return swipeActionConfiguration
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        
-        if segue.identifier == "specificPlayList"{
-            let nextVC = segue.destination as! UINavigationController
-            let topVC = nextVC.topViewController as! SpecificPlayList
-            let index = tableView.indexPathForSelectedRow
-            tableView.deselectRow(at: tableView.indexPathForSelectedRow!, animated: true)
-            topVC.playListKey = playLists[index!.row].key as! String
-            //performSegue(withIdentifier: "specificPlayList", sender: self)
-        }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let stroyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let navVC = storyboard?.instantiateViewController(withIdentifier: "specificPlayList") as! UINavigationController
+        let nextVC = navVC.topViewController as! SpecificPlayList
+        nextVC.playListKey = playLists[indexPath.row].key as! String
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.navigationController?.show(nextVC, sender: self)
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//
+//
+//        if segue.identifier == "specificPlayList"{
+//            let nextVC = segue.destination as! UINavigationController
+//            let topVC = nextVC.topViewController as! SpecificPlayList
+//            let index = tableView.indexPathForSelectedRow
+//            tableView.deselectRow(at: tableView.indexPathForSelectedRow!, animated: true)
+//            topVC.playListKey = playLists[index!.row].key as! String
+//            //performSegue(withIdentifier: "specificPlayList", sender: self)
+//        }
+//    }
     
     
     

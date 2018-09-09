@@ -28,13 +28,73 @@ class FeedManager{
         return feedList
     }
     func updateFeed(feedInfo : FeedItem, completion : @escaping ()->Void){
-        let userId = MiaryLoginManager.getUserInfo().uid
+        let userId = MiaryLoginManager.instance.getUserInfo().uid
         let DBRef = Database.database().reference().child("\(userId)/feed/\(feedInfo.key)")
-        DBRef.updateChildValues(["title" : feedInfo.title])
+        DBRef.updateChildValues(["title" : feedInfo.title,
+                                 "caption" : feedInfo.caption,
+                                 "playListKey" : feedInfo.playListKey])
+        for i in 0..<self.feedList.count {
+            if self.feedList[i].key == feedInfo.key{
+                self.feedList.remove(at: i)
+                self.feedList.insert(feedInfo, at: i)
+                break
+            }
+        }
         print(#function + "end")
         completion()
     }
     
+    func getSpecificFeedFromServer(feedKey : String, completion : @escaping (FeedItem)->Void){
+        let mainCompletion : (FeedItem) -> Void = {(item) -> Void in
+            completion(item)
+        }
+        let userId = MiaryLoginManager.instance.getUserInfo().uid
+        let DBRef = Database.database().reference().child("\(userId)/feed/\(feedKey)")
+        
+        
+        DBRef.observe(.value) { (snapshot) in
+            print("Firebase DB Observe!!")
+            
+            if !snapshot.hasChildren() {
+                let emptyObj = FeedItem()
+                mainCompletion(emptyObj)
+                return;
+            }
+            
+            let item = snapshot.value as! NSDictionary
+            let newItem = FeedItem()
+            let str  : String = item["imageUrl"] as! String
+            let imageUrl = URL(string:str)
+            
+            do{
+                let imageData = try Data(contentsOf: imageUrl!)
+                newItem.image = UIImage(data: imageData)!
+            }catch{
+                
+            }
+            newItem.key = feedKey as! String
+            newItem.title = item["title"] as! String
+            newItem.date = item["date"] as! String
+            newItem.count = item["count"] as! String
+            newItem.city = item["cityName"] as! String
+            newItem.longitude = item["longitude"] as! String
+            newItem.latitude = item["latitude"] as! String
+            newItem.playListKey = item["playListKey"] as! String
+            newItem.caption = item["caption"] as! String
+            
+            for i in 0..<self.feedList.count {
+                if self.feedList[i].key == feedKey {
+                    self.feedList.remove(at: i)
+                    self.feedList.insert(newItem, at: i)
+                    break
+                }
+            }
+            
+            mainCompletion(newItem)
+            
+        }
+        
+    }
     func getSpecificFeedFromManager(index : Int) -> FeedItem{
         return feedList[index]
     }
@@ -72,6 +132,7 @@ class FeedManager{
                                  "playListKey" : feedInfo.playListKey as AnyObject,
                                  "caption" : feedInfo.caption as AnyObject]
                             DBRef.setValue(dataDic)
+                            completion()
                             
                         }
                     })
@@ -84,7 +145,7 @@ class FeedManager{
         
         
         print(feedKey)
-        let userId = MiaryLoginManager.getUserInfo().uid
+        let userId = MiaryLoginManager.instance.getUserInfo().uid
         var DBRef = Database.database().reference().child("\(userId)/feed/\(feedKey)/")
         var STRef = Storage.storage().reference().child("\(userId)/feed/\(feedKey)/")
         STRef.delete { (error) in

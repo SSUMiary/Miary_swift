@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,27 +15,40 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_image.png" translatesAutoresizingMaskIntoConstraints="NO" id="trT-Q0-z6P">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <imageView opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bkground" translatesAutoresizingMaskIntoConstraints="NO" id="trT-Q0-z6P">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Miary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5KK-8M-7Kd">
-                                <rect key="frame" x="126" y="282" width="123" height="102"/>
-                                <fontDescription key="fontDescription" name="Zapfino" family="Zapfino" pointSize="30"/>
-                                <nil key="textColor"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo_ver2" translatesAutoresizingMaskIntoConstraints="NO" id="pkG-du-8RJ">
+                                <rect key="frame" x="157" y="318" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="iUB-oL-qeA"/>
+                                    <constraint firstAttribute="width" constant="100" id="tc1-Yh-xkT"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Music Diary" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUb-5q-ifZ">
+                                <rect key="frame" x="119" y="433" width="176" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="176" id="XMi-Fh-pJr"/>
+                                    <constraint firstAttribute="height" constant="24" id="tJt-9W-JN1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="qUb-5q-ifZ" firstAttribute="top" secondItem="pkG-du-8RJ" secondAttribute="bottom" constant="15" id="9dJ-xT-SRa"/>
                             <constraint firstItem="trT-Q0-z6P" firstAttribute="trailing" secondItem="Bcu-3y-fUS" secondAttribute="trailing" id="AIJ-Qh-C9p"/>
                             <constraint firstItem="trT-Q0-z6P" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="NNi-9E-03S"/>
-                            <constraint firstItem="5KK-8M-7Kd" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Rbn-CX-PTb"/>
-                            <constraint firstItem="5KK-8M-7Kd" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="YYR-2G-cVz"/>
                             <constraint firstItem="trT-Q0-z6P" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="Zle-G1-mfY"/>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="trT-Q0-z6P" secondAttribute="bottom" id="hiz-XC-Mjb"/>
+                            <constraint firstItem="qUb-5q-ifZ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="nHD-p6-pde"/>
+                            <constraint firstItem="pkG-du-8RJ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="s2Q-VI-F8Z"/>
+                            <constraint firstItem="pkG-du-8RJ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="uZS-bV-jDt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                     </view>
@@ -46,6 +59,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background_image.png" width="828" height="1470"/>
+        <image name="app_logo_ver2" width="120" height="122"/>
+        <image name="bkground" width="828" height="1472"/>
     </resources>
 </document>

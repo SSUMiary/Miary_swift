@@ -31,7 +31,8 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     let titleTouchedGuesture = UITapGestureRecognizer()
     let captionTouchedGuesture = UITapGestureRecognizer()
     
-    
+    var isFirstToEditTitle : Bool = true
+    var isFirstToEditCaption : Bool = true
     
     var datePicker: UIDatePicker{
         get{
@@ -65,6 +66,10 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     
     @IBOutlet var labels: [UILabel]!
     
+    override func viewWillAppear(_ animated: Bool) {
+        print(#function)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,7 +92,9 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         nextVC.delegate = self
         nextVC.diaryCaptionStr = diaryCaption.text!
         nextVC.diaryTitleStr = diaryTitle.text!
-        
+        nextVC.isFirstToEditCaption = isFirstToEditCaption
+        nextVC.isFirstToEditTitle = isFirstToEditTitle
+        self.isFirstToEditTitle = false
         self.navigationController?.show(nextVC, sender: self)
     }
     @objc func onDiaryCaptionTextViewTouched(_ sender : UITapGestureRecognizer){
@@ -96,9 +103,13 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         let navVC = storyBoard.instantiateViewController(withIdentifier: "editDiary") as! UINavigationController
         let nextVC = navVC.topViewController as! DiaryContentTableViewController
         nextVC.delegate = self
+        nextVC.diaryCaptionStr = diaryCaption.text!
+        nextVC.diaryTitleStr = diaryTitle.text!
+        nextVC.isFirstToEditCaption = isFirstToEditCaption
+        nextVC.isFirstToEditTitle = isFirstToEditTitle
+        self.isFirstToEditCaption = false
         self.navigationController?.show(nextVC, sender: self)
-        nextVC.diaryCaptionStr = diaryCaptionStr
-        nextVC.diaryTitleStr = diaryTitleStr
+        
     }
     func setupUI(){
         diaryTitle.isUserInteractionEnabled = true
@@ -140,6 +151,9 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         SVProgressHUD.show()
         FeedManager.instance.makeNewFeed(feedInfo: newFeed) {
             FeedManager.instance.getAllFeedFromServer(completion: { (list) in
+                print(#function)
+                print("왜 안꺼질까욤")
+                print(list)
                 if list.count>0 {
                     SVProgressHUD.dismiss()
                     self.dismiss(animated: true, completion: nil)
@@ -200,24 +214,24 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     
     @IBAction func citySearch(_ sender: UIButton) {
         
-        if cityName != nil{
-            
-        }
-        else
-        {
-            // performSegue(withIdentifier: "CitySelect", sender: self)
-            
-        }
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let navVC = storyBoard.instantiateViewController(withIdentifier: "citySelect") as! UINavigationController
+        let nextVC = navVC.topViewController as! citySelectViewController
+        nextVC.delegate = self
+        
+        self.navigationController?.show(nextVC, sender: nil)
         
     }
     
     
+    
+    
     override func prepare(for segue: UIStoryboardSegue,sender: Any?){
-        if segue.identifier == "CitySelect"{
-            let denstinationVC = segue.destination as! UINavigationController
-            let destVC = denstinationVC.topViewController as! citySelectViewController
-            destVC.delegate = self
-        }
+//        if segue.identifier == "CitySelect"{
+//            let denstinationVC = segue.destination as! UINavigationController
+//            let destVC = denstinationVC.topViewController as! citySelectViewController
+//            destVC.delegate = self
+//        }
         if segue.identifier == "selectPlayList" {
             let nextVC = segue.destination as! PlayListInFeedViewController
             nextVC.delegate = self

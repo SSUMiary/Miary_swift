@@ -77,10 +77,10 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
     
     
     
-    @IBAction func onCancelButtonPressed(){
-        self.dismiss(animated: true, completion: nil)
-    }
-    
+//    @IBAction func onCancelButtonPressed(){
+//        self.dismiss(animated: true, completion: nil)
+//    }
+//    
     @IBAction func onEditButtonPressed(){
         let playListManager = PlayListManager()
         let alertController = UIAlertController(title: "Edit play list name", message: "", preferredStyle: .alert)
