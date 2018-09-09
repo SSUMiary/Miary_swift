@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5822F7EF214534E7006985F4 /* ConvertDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5822F7EE214534E7006985F4 /* ConvertDate.swift */; };
 		58232DBD2136797E00F2A9F8 /* CitySelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58232DBC2136797E00F2A9F8 /* CitySelectViewController.swift */; };
 		5827BC1C212BF1B30074AEBE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5827BC1B212BF1B30074AEBE /* MapKit.framework */; };
 		584EA2CF213BA97000DEACFC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584EA2CE213BA97000DEACFC /* CalendarViewController.swift */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		2BE19B22FE6DFC8E7ACDA44A /* Pods_Miary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Miary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5822F7EE214534E7006985F4 /* ConvertDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertDate.swift; sourceTree = "<group>"; };
 		58232DBC2136797E00F2A9F8 /* CitySelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectViewController.swift; sourceTree = "<group>"; };
 		5827BC1B212BF1B30074AEBE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		584EA2CE213BA97000DEACFC /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				78A9F4CE2132B4C700352358 /* MiaryLoginManager.swift */,
 				78A9F4E2213301B200352358 /* PlayListManager.swift */,
 				78A9F4E42133024D00352358 /* FeedManager.swift */,
+				5822F7EE214534E7006985F4 /* ConvertDate.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				78DCC4F621204C2F00D20C0C /* FeedTableViewController.swift in Sources */,
 				787534412120C53200A8F411 /* FeedItem.swift in Sources */,
 				78C5B0822122C31300EFFC21 /* MusicListTableViewCell.swift in Sources */,
+				5822F7EF214534E7006985F4 /* ConvertDate.swift in Sources */,
 				78A9F4CC2132B30400352358 /* EditorialNotes.swift in Sources */,
 				78DCC4FD21206CA500D20C0C /* MapViewController.swift in Sources */,
 				787534432121739D00A8F411 /* FeedDetailViewController.swift in Sources */,

@@ -34,6 +34,7 @@ class CalendarViewController: UIViewController {
         super.viewDidLoad()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
+        formatter.locale = Locale(identifier: "ko_KR")
         let startDate = formatter.date(from: "01.01.2015")!
         let endDate = formatter.date(from: "01.01.2021")!
         
@@ -42,6 +43,7 @@ class CalendarViewController: UIViewController {
             endDate: endDate,
             calendar: defaultCalendar
         )
+        
         calendarView = VACalendarView(frame: .zero, calendar: calendar)
         calendarView.showDaysOut = false
         calendarView.selectionStyle = .single
@@ -49,7 +51,33 @@ class CalendarViewController: UIViewController {
         calendarView.monthViewAppearanceDelegate = self
         calendarView.calendarDelegate = self
         calendarView.scrollDirection = .vertical
+        
+        var arr = FeedManager.instance.getFeeds()
+        
+        var arrCount = FeedManager.instance.getFeeds().count
+        
+        var days : [String] = []
+        var daysIn : [Date] = []
+        
+        for i in 0..<arrCount{
+            days.append(arr[i].date)
 
+        
+        //print("days(arr):" + days)
+        
+        daysIn.append(ConvertDate.instance.stringToDate(dataFromServer: days[i]))
+        print("daysIn")
+        print(daysIn)
+        daysIn[i] = Date(timeInterval: 9*3600, since: daysIn[i])
+        print("daysInTimeInterval")
+        print(daysIn)
+        
+        calendarView.setSupplementaries([(daysIn[i], [VADaySupplementary.bottomDots([.red])])])      //
+        }
+//        if calendarView == days{
+//             calendarView.setSupplementaries([(day, [VADaySupplementary])])
+//        }
+        
         view.addSubview(calendarView)
     }
     
@@ -139,5 +167,6 @@ extension CalendarViewController: VACalendarViewDelegate {
     }
     
 }
+
 
 

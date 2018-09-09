@@ -40,6 +40,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
             datePicker.datePickerMode = .date
             datePicker.addTarget(self, action: #selector(onDateChanged), for: .valueChanged)
             
+            print(datePicker.date)
             return datePicker
         }
     }
@@ -54,7 +55,8 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
             let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
             
             accessoryToolbar.items = [flexibleSpace,doneButton]
-            
+            print(datePicker.datePickerMode)
+            print(datePicker.date)
             return accessoryToolbar
         }
     }
@@ -161,7 +163,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
             let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
                 if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
                     let imagePicker = UIImagePickerController()
-                    imagePicker.allowsEditing = false
+                    imagePicker.allowsEditing = true
                     imagePicker.sourceType = .photoLibrary
                     imagePicker.delegate = self
                     self.present(imagePicker, animated: true, completion: nil)
@@ -174,7 +176,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
             imageView.image = image
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
