@@ -85,7 +85,7 @@ class PlayListInFeedViewController: UIViewController, UITableViewDelegate, UITab
         let item = playLists[indexPath.row]
         cell.backgroundImage.image = item.coverImage
         cell.playListTitle.text = item.playListTitle
-        cell.playListCount.text = item.musicCount
+        //cell.playListCount.text = item.musicCount
         
         
         return cell

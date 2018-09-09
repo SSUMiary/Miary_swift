@@ -115,7 +115,7 @@ class SettingsViewController: UITableViewController {
             self.userProfile.updateConstraintsIfNeeded()
         }
         self.userName.text = Auth.auth().currentUser?.displayName
-        let index = arc4random_uniform(40)
+        let index = arc4random_uniform(39)
         self.caption.text = captionArr[Int(index)]
     }
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

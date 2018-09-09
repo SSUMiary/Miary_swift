@@ -15,14 +15,15 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        //#bc91ee
+        self.tabBar.tintColor = UIColor(red: 0xbc/255.0, green: 0x91/255.0, blue: 0xee/255.0, alpha: 1)
         //button.setTitle("ADD", for: .normal)
         //button.setTitleColor(.black, for: .normal)
         button.setTitleColor(.yellow, for: .highlighted)
-        
-        button.backgroundColor = UIColor(red: 0x3B/255.0, green: 0x59/255.0, blue: 0x98/255.0, alpha: 1)
-        
-        let image = UIImage(named: "profile")
+        //#eae8ff
+        button.backgroundColor = UIColor(red: 0xea/255.0, green: 0xe8/255.0, blue: 0xff/255.0, alpha: 1)
+        //UIColor(red: 0x3B/255.0, green: 0x59/255.0, blue: 0x98/255.0, alpha: 1)
+        let image = UIImage(named: "add_active")
         button.setImage(image, for: .normal)
         button.layer.cornerRadius = 32
         //button.layer.borderWidth = 4
@@ -43,7 +44,10 @@ class TabBarViewController: UITabBarController {
         super.viewDidLayoutSubviews()
         
         // safe place to set the frame of button manually
+        //let height = self.tabBarController?.tabBar.frame.size.height;
+        
         button.frame = CGRect.init(x: self.tabBar.center.x - 32, y: self.view.bounds.height - 64, width: 64, height: 64)
+        //button.frame = CGRect.init(x : self.tabBar.center.x - value, y: self.tabBar.center.y - value, width : value*2, height: value*2)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

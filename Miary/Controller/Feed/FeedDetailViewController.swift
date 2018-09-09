@@ -27,7 +27,7 @@ class FeedDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-   
+        
         prepare()
         
         location.isUserInteractionEnabled = true
@@ -35,15 +35,16 @@ class FeedDetailViewController: UITableViewController {
         location.addGestureRecognizer(touchGeusture)
         
         
-    
+        
     }
     @objc func onLocationButtonClicked(_ sender : UITapGestureRecognizer){
-        
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let navVC = storyBoard.instantiateViewController(withIdentifier: "mapViewInFeed") as! UINavigationController
-        let nextVC = navVC.topViewController as! MapViewInFeedViewController
-        nextVC.feedItem  = self.feedItem
-        self.navigationController?.show(nextVC, sender: self)
+        if feedItem.city != "" {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let navVC = storyBoard.instantiateViewController(withIdentifier: "mapViewInFeed") as! UINavigationController
+            let nextVC = navVC.topViewController as! MapViewInFeedViewController
+            nextVC.feedItem  = self.feedItem
+            self.navigationController?.show(nextVC, sender: self)
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         print(#function)
@@ -89,11 +90,11 @@ class FeedDetailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
-//    
-//    @IBAction func onCancelPressed(){
-//        print(#function)
-//        self.dismiss(animated: true, completion: nil)
-//    }
+    //
+    //    @IBAction func onCancelPressed(){
+    //        print(#function)
+    //        self.dismiss(animated: true, completion: nil)
+    //    }
     func updateFeed(){
         feedItem.title = feedTitle.text
         feedItem.caption = feedCaption.text

@@ -53,10 +53,13 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     func getPlayListsFromserver(){
+        SVProgressHUD.show()
         PlayListManager.instance.getAllPlayLists { (playlist) in
             DispatchQueue.main.async {
+                
                 self.playLists = playlist
                 self.tableView.reloadData()
+                SVProgressHUD.dismiss()
             }
         }
         
@@ -114,7 +117,7 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let cell = tableView.dequeueReusableCell(withIdentifier: "musicList", for: indexPath) as! PlayListTableViewCell
         let item = playLists[indexPath.row]
         cell.backgroundImage.image = item.coverImage
-        cell.playListCount.text = item.musicCount
+        //cell.playListCount.text = item.musicCount
         cell.playListTitle.text = item.playListTitle
         print(#function)
         print(item.musicCount)
