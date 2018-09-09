@@ -53,7 +53,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         return FBSDKApplicationDelegate.sharedInstance().application(app, open: url, options: options)
+        
     }
+    
+        func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+            if locations.first != nil {
+                print("location:: (location)")
+            }
+    
+        }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("error:: \(error)")
+    }
+    
     
 }
 

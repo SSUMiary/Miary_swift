@@ -13,91 +13,34 @@ import MapKit
 protocol SelectCityDelegate {
     func userEnteredCityName(city : String, latitude: Double , longitude: Double)
 }
-
-struct CityInfo {
-    
+protocol HandleMapSearch: class {
+    func dropPinZoomIn(placemark:MKPlacemark)
 }
+
 
 class citySelectViewController: UIViewController, UISearchBarDelegate{
     
+    
+    var selectedPin: MKPlacemark?
+    var resultSearchController: UISearchController!
+    let locationManager = CLLocationManager()
     var delegate : SelectCityDelegate?
     var pinLatitude : Double? = nil
     var pinLongitude : Double? = nil
     var pinText : String? = nil
 
-    
-   
-    
-    @IBAction func SearchButton(_ sender: Any) {
-        let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.delegate = self
-        present(searchController, animated: true, completion: nil)
-    }
+
     @IBOutlet weak var mapView: MKMapView!
     
     var pinpoint = MKPointAnnotation()
     
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        
-        let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        activityIndicator.center = self.view.center
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.startAnimating()
-        
-        self.view.addSubview(activityIndicator)
-        
-        searchBar.resignFirstResponder()
-        dismiss(animated: true, completion: nil)
-        
-        let searchRequest = MKLocalSearchRequest()
-        searchRequest.naturalLanguageQuery = searchBar.text
-        
-        let activeSearch = MKLocalSearch(request: searchRequest)
-        
-        activeSearch.start { (response, error) in
-            
-            activityIndicator.stopAnimating()
-            UIApplication.shared.endIgnoringInteractionEvents()
-            if response == nil{
-                print("ERROR")
-            }
-            else{
-                let annotations = self.mapView.annotations
-                self.mapView.removeAnnotations(annotations)
-             
-                let latitude = response?.boundingRegion.center.latitude
-                let longitude = response?.boundingRegion.center.longitude
-                
-                let annotation = MKPointAnnotation()
-                annotation.title = searchBar.text
-                annotation.coordinate = CLLocationCoordinate2DMake(latitude!, longitude!)
-                self.mapView.addAnnotation(annotation)
-                
-                let coordinate:CLLocationCoordinate2D = CLLocationCoordinate2DMake(latitude!, longitude!)
-                let span = MKCoordinateSpanMake(0.02, 0.02)
-                let region = MKCoordinateRegionMake(coordinate, span)
-                self.mapView.setRegion(region, animated: true)
-                print("latitude: \(latitude)")
-                print("longitude: \(longitude)")
-                print("text: \(searchBar.text)")
-                
-                self.pinLatitude = latitude
-                self.pinLongitude = longitude
-                self.pinText = searchBar.text
-                
-            }
-        }
-    }
     @IBAction func SaveButtonPressed(_ sender: Any) {
-       
-        
+
+
         print("pinLatitude: \(pinLatitude)")
         print("pinLongitude: \(pinLongitude)")
 
-        
+
         let cityName = pinText
         print("City: \(cityName)")
         
@@ -107,11 +50,102 @@ class citySelectViewController: UIViewController, UISearchBarDelegate{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTable") as! LocationSearchTable
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController.searchResultsUpdater = locationSearchTable
+       
+                        let annotations = self.mapView.annotations
+                        self.mapView.removeAnnotations(annotations)
+        
+                            let annotation = MKPointAnnotation()
+                        self.mapView.addAnnotation(annotation)
+       
+        
+        
+        
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search for places"
+        navigationItem.titleView = resultSearchController?.searchBar
+        resultSearchController.hidesNavigationBarDuringPresentation = false
+        resultSearchController.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+       
+        locationSearchTable.mapView = mapView
+        locationSearchTable.handleMapSearchDelegate = self
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+
     }
+
 }
 
 
+
+extension citySelectViewController : CLLocationManagerDelegate {
+    
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.requestLocation()
+        }
+    }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Swift.Error) {
+
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else { return }
+        let span = MKCoordinateSpanMake(0.05, 0.05)
+        let region = MKCoordinateRegion(center: location.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+    }
+}
+
+extension citySelectViewController: HandleMapSearch {
+
+    func dropPinZoomIn(placemark: MKPlacemark){
+        // cache the pin
+        selectedPin = placemark
+        // clear existing pins
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+
+        if let city = placemark.locality,
+        let state = placemark.administrativeArea {
+            annotation.subtitle = "\(city) \(state)"
+        }
+
+        mapView.addAnnotation(annotation)
+        let span = MKCoordinateSpanMake(0.05, 0.05)
+        let region = MKCoordinateRegionMake(placemark.coordinate, span)
+        mapView.setRegion(region, animated: true)
+      
+        let dic = placemark.addressDictionary
+        let latitude = placemark.coordinate.latitude
+        let longitude = placemark.coordinate.longitude
+        
+        print(dic!["Name"] as! String)
+        print(latitude)
+        print(longitude)
+        
+        pinText = dic!["Name"] as! String
+        pinLatitude = latitude
+        pinLongitude = longitude
+        
+        print(pinText)
+        print(pinLatitude)
+        print(pinLongitude)
+    }
+    
+
+}
