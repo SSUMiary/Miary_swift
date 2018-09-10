@@ -882,14 +882,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playlist Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry9-vp-dIW">
-                                            <rect key="frame" x="161" y="39.666666666666664" width="92" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry9-vp-dIW">
+                                            <rect key="frame" x="20" y="50.333333333333336" width="374" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TvZ-Zi-aCX">
-                                            <rect key="frame" x="170.66666666666666" y="70.666666666666671" width="73" height="29.333333333333329"/>
+                                            <rect key="frame" x="170.66666666666666" y="60.333333333333343" width="73" height="39.666666666666657"/>
                                             <state key="normal" title="Add songs"/>
                                             <connections>
                                                 <action selector="addSongs" destination="NDY-eE-DO4" eventType="touchUpInside" id="DLr-IJ-S8h"/>
@@ -902,6 +902,8 @@
                                         <constraint firstItem="TvZ-Zi-aCX" firstAttribute="centerX" secondItem="4o5-JK-DRv" secondAttribute="centerX" id="HCT-sn-oT6"/>
                                         <constraint firstItem="Ry9-vp-dIW" firstAttribute="centerY" secondItem="4o5-JK-DRv" secondAttribute="centerY" id="OTX-kr-nwr"/>
                                         <constraint firstItem="TvZ-Zi-aCX" firstAttribute="top" secondItem="Ry9-vp-dIW" secondAttribute="bottom" constant="10" id="PoC-RT-X8J"/>
+                                        <constraint firstItem="Ry9-vp-dIW" firstAttribute="leading" secondItem="4o5-JK-DRv" secondAttribute="leading" constant="20" id="SkF-wb-gfT"/>
+                                        <constraint firstAttribute="trailing" secondItem="Ry9-vp-dIW" secondAttribute="trailing" constant="20" id="b5j-9M-KRl"/>
                                         <constraint firstAttribute="bottom" secondItem="TvZ-Zi-aCX" secondAttribute="bottom" id="cQz-PH-sVT"/>
                                     </constraints>
                                 </view>

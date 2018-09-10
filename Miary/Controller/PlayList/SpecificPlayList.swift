@@ -55,7 +55,15 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
                 print(#function)
                 print(error)
             }
-            guard capabilities.contains(.musicCatalogPlayback) else { return }
+            guard capabilities.contains(.musicCatalogPlayback) else {
+                let alertController = UIAlertController(title: "Apple Music Required", message: "Please subscribe apple music in appstore", preferredStyle: UIAlertControllerStyle.alert)
+                let alert = UIAlertAction(title: "OK", style: .default, handler: nil)
+                
+                alertController.addAction(alert)
+                self.present(alertController, animated: true, completion: nil)
+                return
+                
+            }
             self.canMusicCatalogPlayback = true
         }
     }
@@ -76,11 +84,7 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
     }
     
     
-    
-//    @IBAction func onCancelButtonPressed(){
-//        self.dismiss(animated: true, completion: nil)
-//    }
-//    
+  
     @IBAction func onEditButtonPressed(){
         let playListManager = PlayListManager()
         let alertController = UIAlertController(title: "Edit play list name", message: "", preferredStyle: .alert)
@@ -142,6 +146,11 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
         guard canMusicCatalogPlayback else {
             print(#function)
             print(canMusicCatalogPlayback)
+            let alertController = UIAlertController(title: "Apple Music Required", message: "Please subscribe apple music in appstore", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertAction(title: "OK", style: .default, handler: nil)
+            
+            alertController.addAction(alert)
+            self.present(alertController, animated: true, completion: nil)
             return }
         //guard indexPath.section == 1 else { return }
         
