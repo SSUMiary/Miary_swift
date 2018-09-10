@@ -23,7 +23,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     @IBOutlet weak var DateFieldText: UITextField!
     @IBOutlet weak var diaryTitle: UILabel!
     @IBOutlet weak var diaryCaption : UILabel!
-    @IBOutlet weak var cityName: UITextField!
+    @IBOutlet weak var cityName: UILabel!
     
     var diaryTitleStr : String!
     var diaryCaptionStr : String!
@@ -171,23 +171,40 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            let alertController = UIAlertController(title: "", message: "Choose your photo source", preferredStyle: .actionSheet)
-            let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
-                if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-                    let imagePicker = UIImagePickerController()
-                    imagePicker.allowsEditing = true
-                    imagePicker.sourceType = .photoLibrary
-                    imagePicker.delegate = self
-                    self.present(imagePicker, animated: true, completion: nil)
-                }
+    @IBAction func onAddPicButton(){
+        let alertController = UIAlertController(title: "", message: "Choose your photo source", preferredStyle: .actionSheet)
+        let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+                let imagePicker = UIImagePickerController()
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = .photoLibrary
+                imagePicker.delegate = self
+                self.present(imagePicker, animated: true, completion: nil)
             }
-            alertController.addAction(photoLibraryAction)
-            present(alertController, animated: true, completion: nil)
         }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        
+        alertController.addAction(photoLibraryAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
-    
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if indexPath.row == 0 {
+//            let alertController = UIAlertController(title: "", message: "Choose your photo source", preferredStyle: .actionSheet)
+//            let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
+//                if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+//                    let imagePicker = UIImagePickerController()
+//                    imagePicker.allowsEditing = true
+//                    imagePicker.sourceType = .photoLibrary
+//                    imagePicker.delegate = self
+//                    self.present(imagePicker, animated: true, completion: nil)
+//                }
+//            }
+//            alertController.addAction(photoLibraryAction)
+//            present(alertController, animated: true, completion: nil)
+//        }
+//    }
+//
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
@@ -220,7 +237,6 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
         let navVC = storyBoard.instantiateViewController(withIdentifier: "citySelect") as! UINavigationController
         let nextVC = navVC.topViewController as! citySelectViewController
         nextVC.delegate = self
-        
         self.navigationController?.show(nextVC, sender: nil)
         
     }
@@ -229,11 +245,7 @@ class AddFeedTableViewController: UITableViewController , UIImagePickerControlle
     
     
     override func prepare(for segue: UIStoryboardSegue,sender: Any?){
-//        if segue.identifier == "CitySelect"{
-//            let denstinationVC = segue.destination as! UINavigationController
-//            let destVC = denstinationVC.topViewController as! citySelectViewController
-//            destVC.delegate = self
-//        }
+
         if segue.identifier == "selectPlayList" {
             let nextVC = segue.destination as! PlayListInFeedViewController
             nextVC.delegate = self

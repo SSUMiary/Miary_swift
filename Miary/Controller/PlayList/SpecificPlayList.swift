@@ -50,22 +50,28 @@ class SpecificPlayList: UIViewController, UITableViewDelegate,UITableViewDataSou
     }
     
     func prepare(){
-        self.cloudServiceController.requestCapabilities { capabilities, error in
-            if error != nil {
-                print(#function)
-                print(error)
+        SVProgressHUD.show()
+        DispatchQueue.main.async {
+            self.cloudServiceController.requestCapabilities { capabilities, error in
+                if error != nil {
+                    print(#function)
+                    print(error)
+                }
+                guard capabilities.contains(.musicCatalogPlayback) else {
+                    let alertController = UIAlertController(title: "Apple Music Required", message: "Please subscribe apple music in appstore", preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    
+                    alertController.addAction(alert)
+                    self.present(alertController, animated: true, completion: nil)
+                    SVProgressHUD.dismiss()
+                    return
+                    
+                }
+                self.canMusicCatalogPlayback = true
+                SVProgressHUD.dismiss()
             }
-            guard capabilities.contains(.musicCatalogPlayback) else {
-                let alertController = UIAlertController(title: "Apple Music Required", message: "Please subscribe apple music in appstore", preferredStyle: UIAlertControllerStyle.alert)
-                let alert = UIAlertAction(title: "OK", style: .default, handler: nil)
-                
-                alertController.addAction(alert)
-                self.present(alertController, animated: true, completion: nil)
-                return
-                
-            }
-            self.canMusicCatalogPlayback = true
         }
+        
     }
     
     
