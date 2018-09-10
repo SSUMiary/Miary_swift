@@ -6,15 +6,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Miary/Controller/PlayList/AlbumViewController.swift"
-            timestampString = "557934221.536492"
+            timestampString = "558277681.569545"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "prepare()"
             landmarkType = "7">
          </BreakpointContent>
@@ -22,15 +22,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Miary/Controller/PlayList/AlbumViewController.swift"
-            timestampString = "557934221.536685"
+            timestampString = "558277681.569965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "prepare()"
             landmarkType = "7">
          </BreakpointContent>
@@ -38,15 +38,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Miary/Controller/PlayList/AlbumViewController.swift"
-            timestampString = "557934221.536773"
+            timestampString = "558277681.570188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "prepare()"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Miary/Controller/Calendar/CalendarViewController.swift"
-            timestampString = "558276665.699957"
+            timestampString = "558277681.570448"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "70"
@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Miary/Controller/Calendar/CalendarViewController.swift"
-            timestampString = "558276665.700022"
+            timestampString = "558277681.570504"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Miary/Controller/Calendar/CalendarViewController.swift"
-            timestampString = "558276665.700073"
+            timestampString = "558277681.570554"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
@@ -122,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Miary/Controller/Calendar/CalendarViewController.swift"
-            timestampString = "558276665.70012"
+            timestampString = "558277681.5706021"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "74"
@@ -138,13 +138,61 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Miary/Controller/Calendar/CalendarViewController.swift"
-            timestampString = "558276665.7001669"
+            timestampString = "558277681.570649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "73"
             endingLineNumber = "73"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Miary/Controller/PlayList/AlbumViewController.swift"
+            timestampString = "558277709.977648"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "prepare()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.SKCloudServiceCapability, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Miary.AlbumViewController.prepare() -&gt; ()"
+                  moduleName = "Miary"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/euijoonjung/Desktop/main/ios/Miary/Miary/Controller/PlayList/AlbumViewController.swift"
+                  timestampString = "558277709.984566"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "122"
+                  endingLineNumber = "122"
+                  offsetFromSymbolStart = "1212">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Bool, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #2 (__C.SKCloudServiceCapability, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in Miary.AlbumViewController.prepare() -&gt; ()"
+                  moduleName = "Miary"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/euijoonjung/Desktop/main/ios/Miary/Miary/Controller/PlayList/AlbumViewController.swift"
+                  timestampString = "558277709.986805"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "123"
+                  endingLineNumber = "123"
+                  offsetFromSymbolStart = "28">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

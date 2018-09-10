@@ -9,6 +9,7 @@
 import UIKit
 import StoreKit
 import MediaPlayer
+import SVProgressHUD
 
 class AlbumViewController: UITableViewController, UINavigationBarDelegate, SKCloudServiceSetupViewControllerDelegate {
     
@@ -76,10 +77,15 @@ extension AlbumViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        playListManager.addMusicToPlayList(albumID: albumID, album: album!, playListKey: playListKey, index: indexPath.row){
-            
+        SVProgressHUD.show()
+        DispatchQueue.main.async {
+            PlayListManager.instance.addMusicToPlayList(albumID: self.albumID, album: self.album!, playListKey: self.playListKey, index: indexPath.row){
+                SVProgressHUD.dismiss()
+                
+            }
         }
-        self.dismiss(animated: true, completion: nil)
+        
+        
         
     }
     
