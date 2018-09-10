@@ -104,15 +104,15 @@ class MapViewController: UIViewController , CLLocationManagerDelegate, MKMapView
             locationManager.startUpdatingLocation()
         }
         else{
-            let alertController = UIAlertController(title: "Please turn on location services or GPS", message: "", preferredStyle: .alert)
-            let alertAction = UIAlertAction(title: "OK", style: .default) { (action) in
-                
-            }
-            alertController.addAction(alertAction)
-            self.present(alertController, animated: true) {
-                print("Please turn on location services or GPS")
-            }
-            
+//            let alertController = UIAlertController(title: "Please turn on location services or GPS", message: "", preferredStyle: .alert)
+//            let alertAction = UIAlertAction(title: "OK", style: .default) { (action) in
+//
+//            }
+//            alertController.addAction(alertAction)
+//            self.present(alertController, animated: true) {
+//                print("Please turn on location services or GPS")
+//            }
+//
         }
     }
     
@@ -132,10 +132,10 @@ class MapViewController: UIViewController , CLLocationManagerDelegate, MKMapView
             
             let annotation = MKPointAnnotation()
             
-            annotation.coordinate = location
-            annotation.title = getTitle
-            
-            mapView.addAnnotation(annotation)
+//            annotation.coordinate = location
+//            annotation.title = getTitle
+//            
+//            mapView.addAnnotation(annotation)
             setCurrentMap = false
         }
         

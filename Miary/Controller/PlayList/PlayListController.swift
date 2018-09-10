@@ -131,13 +131,16 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         let deleteAction = UIContextualAction(style: .destructive, title: "delete") { (action, sourceView, completionHandler) in
             
             SVProgressHUD.show()
-            PlayListManager.instance.deleteMusicList(playListKey: self.playLists[indexPath.row].key, completion: {
-                self.playLists.remove(at: indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
-                SVProgressHUD.dismiss()
-            })
+            DispatchQueue.main.async {
+                PlayListManager.instance.deleteMusicList(playListKey: self.playLists[indexPath.row].key, completion: {
+                    self.playLists.remove(at: indexPath.row)
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    SVProgressHUD.dismiss()
+                })
+                
+                completionHandler(true)
+            }
             
-            completionHandler(true)
         }
         
         let swipeActionConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
@@ -152,18 +155,7 @@ class PlayListController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.navigationController?.show(nextVC, sender: self)
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//
-//
-//        if segue.identifier == "specificPlayList"{
-//            let nextVC = segue.destination as! UINavigationController
-//            let topVC = nextVC.topViewController as! SpecificPlayList
-//            let index = tableView.indexPathForSelectedRow
-//            tableView.deselectRow(at: tableView.indexPathForSelectedRow!, animated: true)
-//            topVC.playListKey = playLists[index!.row].key as! String
-//            //performSegue(withIdentifier: "specificPlayList", sender: self)
-//        }
-//    }
+    
     
     
     

@@ -12,14 +12,14 @@ import VACalendar
 
 class CalendarViewController: UIViewController {
     
-  //  @IBOutlet weak var Calendar: UICollectionView!
+    //  @IBOutlet weak var Calendar: UICollectionView!
     @IBOutlet weak var weekDaysView: VAWeekDaysView!{
         didSet{
             let appeareance = VAWeekDaysViewAppearance(symbolsType: .short, calendar: defaultCalendar)
             weekDaysView.appearance = appeareance
         }
     }
-   
+    
     let defaultCalendar: Calendar = {
         var calendar = Calendar.current
         calendar.firstWeekday = 2
@@ -34,6 +34,7 @@ class CalendarViewController: UIViewController {
         super.viewDidLoad()
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
+        formatter.locale = Locale(identifier: "ko_KR")
         let startDate = formatter.date(from: "01.01.2015")!
         let endDate = formatter.date(from: "01.01.2021")!
         
@@ -42,6 +43,7 @@ class CalendarViewController: UIViewController {
             endDate: endDate,
             calendar: defaultCalendar
         )
+        
         calendarView = VACalendarView(frame: .zero, calendar: calendar)
         calendarView.showDaysOut = false
         calendarView.selectionStyle = .single
@@ -49,7 +51,48 @@ class CalendarViewController: UIViewController {
         calendarView.monthViewAppearanceDelegate = self
         calendarView.calendarDelegate = self
         calendarView.scrollDirection = .vertical
-
+        
+        var arr = FeedManager.instance.getFeeds()
+        
+        var arrCount = FeedManager.instance.getFeeds().count
+        
+        var days : [String] = []
+        var daysIn : [Date] = []
+        var dotDic : Dictionary<Date,[UIColor]> = [:]
+        var checked : [Bool] = [Bool](repeating: false, count: arrCount)
+        //var dots : [UIColor] = [UIColor.red,UIColor.blue,UIColor.black]
+        for i in 0..<arrCount{
+            days.append(arr[i].date)
+            daysIn.append(ConvertDate.instance.stringToDate(dataFromServer: days[i]))
+            daysIn[i] = Date(timeInterval: 9*3600, since: daysIn[i])
+            
+        }
+        for i in 0..<arrCount{
+            var dotArr : [UIColor] = []
+            for j in 0..<arrCount{
+                if !checked[j] && (daysIn[i] == daysIn[j]){
+                    checked[j] = true
+                    dotArr.append(UIColor.red)
+                    
+                }
+            }
+            
+            if dotArr.count != 0 {
+                dotDic[daysIn[i]] = dotArr
+                calendarView.setSupplementaries([(daysIn[i], [VADaySupplementary.bottomDots(dotDic[daysIn[i]]!)])])
+            }
+            
+        }
+//        for i in 0..<arrCount {
+//            if checked[i] {
+//                calendarView.setSupplementaries([(daysIn[i], [VADaySupplementary.bottomDots(dotDic[daysIn[i]]!)])])
+//            }
+//        }
+        
+        
+        
+        
+        
         view.addSubview(calendarView)
     }
     
@@ -139,5 +182,6 @@ extension CalendarViewController: VACalendarViewDelegate {
     }
     
 }
+
 
 

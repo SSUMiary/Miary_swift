@@ -41,19 +41,30 @@ class FeedTableViewController: UITableViewController,FeedProtocol, UIGestureReco
         guard let indexPath = self.tableView.indexPathForRow(at: touchPoint) else {
             return
         }
-        let alertController = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "Options", message: "", preferredStyle: .actionSheet)
         
         
         let deleteFeedAction = UIAlertAction(title: "Delete", style: .default) { (action) in
+            
             SVProgressHUD.show()
-            FeedManager.instance.deleteFeed(feedKey: self.feeds[indexPath.row].key, completion: {
-                self.feeds.remove(at: indexPath.row)
-                self.tableView.reloadData()
-                SVProgressHUD.dismiss()
-            })
+            DispatchQueue.main.async {
+                FeedManager.instance.deleteFeed(feedKey: self.feeds[indexPath.row].key, completion: {
+                    
+                    self.feeds.remove(at: indexPath.row)
+                    self.tableView.reloadData()
+                    SVProgressHUD.dismiss()
+                    
+                    
+                })
+            }
+            
+        }
+        let cancelFeedAction = UIAlertAction(title: "Cancel", style: .default) { (action) in
+            
         }
         
         alertController.addAction(deleteFeedAction)
+        alertController.addAction(cancelFeedAction)
         self.present(alertController,animated: true, completion: nil)
     }
     

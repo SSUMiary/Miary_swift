@@ -728,7 +728,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ydq-zn-7bT">
-                                            <rect key="frame" x="119.66666666666669" y="45" width="81" height="30"/>
+                                            <rect key="frame" x="166.66666666666666" y="45" width="81" height="30"/>
                                             <state key="normal" title="new Playlist"/>
                                             <connections>
                                                 <action selector="onNewButtonPreessed" destination="FYq-i0-JOa" eventType="touchUpInside" id="Vmv-3s-9K6"/>
@@ -858,13 +858,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bGj-HZ-pVc"/>
                     </view>
-                    <navigationItem key="navigationItem" id="N5Q-8V-i7I">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="ciU-pt-VgA">
-                            <connections>
-                                <action selector="SearchButton:" destination="XgW-MV-7wb" id="yAL-y1-Wv0"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="N5Q-8V-i7I"/>
                     <connections>
                         <outlet property="mapView" destination="RCY-1C-iQH" id="6q2-uH-aaV"/>
                     </connections>
@@ -889,13 +883,13 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Playlist Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ry9-vp-dIW">
-                                            <rect key="frame" x="114" y="39.666666666666664" width="92" height="21"/>
+                                            <rect key="frame" x="161" y="39.666666666666664" width="92" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TvZ-Zi-aCX">
-                                            <rect key="frame" x="123.66666666666669" y="70.666666666666671" width="73" height="29.333333333333329"/>
+                                            <rect key="frame" x="170.66666666666666" y="70.666666666666671" width="73" height="29.333333333333329"/>
                                             <state key="normal" title="Add songs"/>
                                             <connections>
                                                 <action selector="addSongs" destination="NDY-eE-DO4" eventType="touchUpInside" id="DLr-IJ-S8h"/>
@@ -912,7 +906,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MusicListTableViewCell" id="ztg-as-tt4" customClass="MusicListTableViewCell" customModule="Miary" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MusicListTableViewCell" id="ztg-as-tt4" customClass="MusicListTableViewCell" customModule="Miary" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="128" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ztg-as-tt4" id="Dk2-uC-PSm" customClass="MusicListTableViewCell" customModule="Miary" customModuleProvider="target">
@@ -992,7 +986,7 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchResult" id="LZ1-1b-cmb" customClass="MusicListTableViewCell" customModule="Miary" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="searchResult" id="LZ1-1b-cmb" customClass="MusicListTableViewCell" customModule="Miary" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LZ1-1b-cmb" id="Ebk-Pa-R4U" customClass="MusicListTableViewCell" customModule="Miary" customModuleProvider="target">
@@ -1219,12 +1213,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" misplaced="YES" id="vlI-zO-dNN">
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="vlI-zO-dNN">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RuH-Ve-oZn">
-                                    <rect key="frame" x="20" y="5" width="374" height="202"/>
+                                    <rect key="frame" x="20" y="5" width="374" height="34"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -1312,7 +1306,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baV-RW-Uze">
-                                                    <rect key="frame" x="20" y="6" width="280" height="30"/>
+                                                    <rect key="frame" x="20" y="6" width="374" height="30"/>
                                                     <state key="normal" title="PlayList"/>
                                                     <connections>
                                                         <action selector="onPlayListButtonClicked" destination="oTk-uG-uAg" eventType="touchUpInside" id="9fE-ha-b8T"/>
@@ -1383,7 +1377,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7QJ-TD-f8c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7511.1999999999998" y="162.3688155922039"/>
+            <point key="canvasLocation" x="8417.391304347826" y="162.22826086956522"/>
         </scene>
         <!--Setting-->
         <scene sceneID="AWT-GG-SOE">
@@ -1786,23 +1780,67 @@
             </objects>
             <point key="canvasLocation" x="5320.8000000000002" y="949.47526236881572"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="ezf-Cu-sAs">
+        <!--Location Search Table-->
+        <scene sceneID="1ld-Gm-eah">
             <objects>
-                <navigationController storyboardIdentifier="mapViewInFeed" automaticallyAdjustsScrollViewInsets="NO" id="HUh-Mw-50N" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="LocationSearchTable" id="D0D-PX-Z6s" customClass="LocationSearchTable" customModule="Miary" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="J5W-PO-TP6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="mUo-c2-ngf" detailTextLabel="rNA-Wb-sSg" style="IBUITableViewCellStyleSubtitle" id="axF-NQ-s14">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="axF-NQ-s14" id="mqU-i7-xpJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mUo-c2-ngf">
+                                            <rect key="frame" x="20" y="6" width="31.666666666666668" height="19.333333333333332"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rNA-Wb-sSg">
+                                            <rect key="frame" x="19.999999999999996" y="25.333333333333332" width="40.666666666666664" height="13.333333333333334"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="D0D-PX-Z6s" id="Yxn-AD-0lk"/>
+                            <outlet property="delegate" destination="D0D-PX-Z6s" id="bJd-Ro-Sb6"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x0S-Zf-M1V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7732" y="2602"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="rYS-5B-cde">
+            <objects>
+                <navigationController storyboardIdentifier="mapViewInFeed" automaticallyAdjustsScrollViewInsets="NO" id="Y3S-mE-YKV" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uI2-3Q-UiB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MuZ-qv-xZM">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="RU7-80-d01" kind="relationship" relationship="rootViewController" id="3O7-Y3-IPJ"/>
+                        <segue destination="RU7-80-d01" kind="relationship" relationship="rootViewController" id="fQf-In-iuk"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rsg-Yn-eWt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MXU-Mh-LJ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6572" y="161.46926536731635"/>
+            <point key="canvasLocation" x="7510.1449275362329" y="162.22826086956522"/>
         </scene>
     </scenes>
     <resources>
