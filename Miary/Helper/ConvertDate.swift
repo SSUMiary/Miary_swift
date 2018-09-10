@@ -91,13 +91,8 @@ class ConvertDate{
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy.MM.dd."
             FinalData = formatter.date(from: forData)!
-            
-            
-            
-            print("FinalData")
-            print(FinalData)
-            //   return FinalData
-            
+        
+            return FinalData
         }
         let dayArr :[String] = forData.components(separatedBy: " ")
         
