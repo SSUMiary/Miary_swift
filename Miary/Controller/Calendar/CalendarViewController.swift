@@ -23,7 +23,7 @@ class CalendarViewController: UIViewController {
     let defaultCalendar: Calendar = {
         var calendar = Calendar.current
         calendar.firstWeekday = 2
-        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        calendar.timeZone = TimeZone(abbreviation: "KST")!
         return calendar
     }()
     
@@ -35,8 +35,10 @@ class CalendarViewController: UIViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
         formatter.locale = Locale(identifier: "ko_KR")
+        formatter.timeZone = TimeZone(abbreviation: "KST")
         let startDate = formatter.date(from: "01.01.2015")!
         let endDate = formatter.date(from: "01.01.2021")!
+       
         
         let calendar = VACalendar(
             startDate: startDate,

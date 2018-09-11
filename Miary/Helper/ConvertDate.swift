@@ -85,9 +85,7 @@ class ConvertDate{
             forData = replaced
         }
         else{
-            print("forDate:" + forData)
-            forData = dataFromServer
-            print("forDate2:" + forData)
+            forData = dataFromServer      
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy.MM.dd."
             FinalData = formatter.date(from: forData)!
@@ -105,8 +103,6 @@ class ConvertDate{
         if var testing = calendar.date(from: comp){
             let timeInteval : TimeInterval = TimeInterval(9*3600)
             testing = Date(timeInterval: 9*3600, since: testing)
-            print(#function)
-            print(testing)
             FinalData = testing
         }
         
