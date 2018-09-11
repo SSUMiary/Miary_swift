@@ -18,46 +18,45 @@ class ConvertDate{
         
         
         if dataFromServer.contains("Jan") == true{
-            let replaced = (dataFromServer as NSString).replacingOccurrences(of: "01", with: "Jan")
-            
+            let replaced = dataFromServer.replacingOccurrences(of: "Jan", with: "01")
             
             forData = replaced
         }
         else if dataFromServer.contains("Feb") == true {
-            let replaced = (dataFromServer as NSString).replacingOccurrences(of: "02", with: "Feb")
+            let replaced = dataFromServer.replacingOccurrences(of: "Feb", with: "02")
             
             forData = replaced
         }
         else if dataFromServer.contains("Mar") == true {
-            let replaced = (dataFromServer as NSString).replacingOccurrences(of: "03", with: "Mar")
+            let replaced = dataFromServer.replacingOccurrences(of: "Mar", with: "03")
             
             forData = replaced
         }
         else if dataFromServer.contains("Apr") == true {
-            let replaced = (dataFromServer as NSString).replacingOccurrences(of: "04", with: "Apr")
+            let replaced = dataFromServer.replacingOccurrences(of: "Apr", with: "04")
             
             forData = replaced
         }
         else if dataFromServer.contains("May") == true {
-            let replaced = (dataFromServer as NSString).replacingOccurrences(of: "05", with: "May")
+            let replaced = dataFromServer.replacingOccurrences(of: "May", with: "05")
             
             forData = replaced
         }
             
         else if dataFromServer.contains("Jun") == true {
-            let replaced = (dataFromServer as NSString).replacingOccurrences(of: "06", with: "Jun")
+            let replaced = dataFromServer.replacingOccurrences(of: "Jun", with: "06")
             
             forData = replaced
         }
             
         else if dataFromServer.contains("Jul") == true {
-            let replaced = (dataFromServer as NSString).replacingOccurrences(of: "07", with: "Jul")
+            let replaced = dataFromServer.replacingOccurrences(of: "Jul", with: "07")
             
             forData = replaced
         }
             
         else if dataFromServer.contains("Aug") == true {
-            let replaced = (dataFromServer as NSString).replacingOccurrences(of: "08", with: "Aug")
+            let replaced = dataFromServer.replacingOccurrences(of: "Aug", with: "08")
             
             forData = replaced
         }
@@ -68,24 +67,24 @@ class ConvertDate{
         }
             
         else if dataFromServer.contains("Oct") == true {
-            let replaced = (dataFromServer as NSString).replacingOccurrences(of: "10", with: "Oct")
+            let replaced = dataFromServer.replacingOccurrences(of: "Oct", with: "10")
             
             forData = replaced
         }
             
         else if dataFromServer.contains("Nov") == true {
-            let replaced = (dataFromServer as NSString).replacingOccurrences(of: "11", with: "Nov")
+            let replaced = dataFromServer.replacingOccurrences(of: "Nov", with: "11")
             
             forData = replaced
         }
             
         else if dataFromServer.contains("Dec") == true {
-            let replaced = (dataFromServer as NSString).replacingOccurrences(of: "12", with: "Dec")
+            let replaced = dataFromServer.replacingOccurrences(of: "Dec", with: "12")
             
             forData = replaced
         }
         else{
-            forData = dataFromServer      
+            forData = dataFromServer
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy.MM.dd."
             FinalData = formatter.date(from: forData)!
